@@ -1,0 +1,17 @@
+﻿@model SongsListViewModel
+
+@{
+    ViewBag.Title = "List Country";
+}
+
+@foreach (var p in Model.Songs)
+{
+    @Html.Partial("SongSummary", p)
+}
+@*Pagination Links*@
+<div page-model="@Model.PagingInfo" page-action="ListCountry" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-secondary"
+     @*I added country to the URL Page*@
+     page-class-selected="btn-primary" page-url-country="@Model.CurrentCountry"
+     class="btn-group pull-right m-1">
+</div>

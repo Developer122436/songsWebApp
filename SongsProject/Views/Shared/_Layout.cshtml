@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" asp-href-include="~/lib/fontawesome/css/*.css" />
+    <title>SongsStore</title>
+    <link asp-href-include="~/css/site.css" rel="stylesheet" />
+    <environment include="Development">
+        <link asp-href-include="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    </environment>
+    @*On href we will run production and staging environment files*@
+    @*integrity link used for check subsource integrity - If the file have retrieve malicious altered*@
+    @*ggOyR0iXCbMQv3Xipma34MD - this have to be match from what the browser loaded else it is altered*@
+    @*If the file download from CDN(Proxy server) is failed(do crush) it will run asp-fallback-href*@
+    @*In case CDN will crush we can use this minified bootstrap files*@
+    @*asp-suppress-fallback-integrity="true" - true it is means that the browser will not check integrity
+        files downloaded asp-fallback-href even if will be crush - we can trust our server*@
+    @*The following 3 attributes and their associated values are used to check if the CDN is down:
+        asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"*@
+    <environment exclude="Development">
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+              crossorigin="anonymous"
+              asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only"
+              asp-fallback-test-property="position"
+              asp-fallback-test-value="absolute"
+              asp-suppress-fallback-integrity="true">
+    </environment>
+
+</head>
+<body>
+    <div class="p-1 bg-dark" role="navigation">
+        <div class="row">
+            <li><a class="col navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="ListCountry">Home Page</a></li>
+            <li><a class="col navbar-brand text-white" asp-area="" asp-controller="User" asp-action="Login">Log in admin</a></li>
+            <li>
+                <div class="col-5 text-right">
+                    @await Component.InvokeAsync("CartSummary")
+                </div>
+            </li>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div class="row">
+            @*grid class, used for layout - col-md(medium)-3 - md(medium) is working on making order when resize of screen to medium*@
+            @*col-sm(small)-3 - md(small) is working on making order when resize of screen to medium*@
+            @*col-xs(xtrasmall)-3 - md(xtrasmall) is working on making order when resize of screen to medium*@
+            @*col-md-offset-3 - move 3 columns to the right*@
+            <div id="countries" class="col-md-3">
+                @await Component.InvokeAsync("NavigationSearch")
+                <br />
+                @await Component.InvokeAsync("NavigationMenu")
+            </div>
+            @*Here the code from another views will run*@
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+        </div>
+        <hr />
+        <footer>
+            <p><center>Songs List</center></p>
+        </footer>
+    </div>
+    @*Here all the scripts of elements from wwwroot will run*@
+    @*It is optional to have scripts in every view class*@
+    @if (IsSectionDefined("Scripts"))
+    {
+        @*required: true - Mandatory scripts. Will shown on page source*@
+        @RenderSection("Scripts", required: true)
+    }
+</body>
+</html>

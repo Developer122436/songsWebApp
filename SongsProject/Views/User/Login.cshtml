@@ -1,0 +1,23 @@
+﻿@model User
+
+@{
+    ViewBag.Title = "Admin user - Log in";
+    Layout = "_SecondLayout";
+}
+<form asp-action="Login" asp-controller="User" method="post">
+    <div class="text-danger" asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <div><span asp-validation-for="Name" class="text-danger"></span></div>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <div><span asp-validation-for="Password" class="text-danger"></span></div>
+        <input asp-for="Password" class="form-control" />
+    </div>
+    <button class="btn btn-primary" type="submit">Log In</button>
+    <a asp-action="Cancel" class="btn btn-danger">Cancel</a>
+</form>
+
+

@@ -1,0 +1,52 @@
+﻿@model CartIndexViewModel
+
+    <h2>Your cart</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th class="text-center">Artist</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Country</th>
+                <th class="text-center">Price</th>
+            </tr>
+        </thead>`
+        <tbody>
+            @foreach (var line in Model.Cart.Lines)
+            {
+                <tr>
+                    <td class="text-center">@line.Song.Artist</td>
+                    <td class="text-center">@line.Song.Name</td>
+                    <td class="text-center">@line.Song.Description</td>
+                    <td class="text-center">@line.Song.Country</td>
+                    <td class="text-center">@line.Song.Price.ToString("c")</td>
+                    @*Remove Button*@
+                    <td>
+                        <form asp-action="RemoveFromCart" method="post">
+                            <input type="hidden" name="Id"
+                                   value="@line.Song.Id" />
+                            <input type="hidden" name="returnUrl"
+                                   value="@Model.ReturnUrl" />
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                Remove
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" class="text-right">Total:</td>
+                <td class="text-center">
+                    @Model.Cart.ComputeTotalValue().ToString("c")
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="text-center">
+        <a class="btn btn-primary" href="@Model.ReturnUrl">Continue buying songs</a>
+        <a class="btn btn-primary" asp-action="Checkout" asp-controller="Order">
+            Checkout
+        </a>
+    </div>

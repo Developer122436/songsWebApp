@@ -1,0 +1,54 @@
+﻿<form class="text-center" asp-route-songPage="1" asp-route-Name="@ViewBag.Name" asp-action="ListNames" asp-controller="Home" method="get">
+    <div>
+        <h3><u>Searching song through name:</u></h3>
+    </div>
+    @*<input type="text" name="Name" data-bind="value: Name" value="@ViewBag.Name" />*@
+    <input type="text" name="Name" value="@ViewBag.Name" />
+    <input class="btn btn-primary" type="submit" value="Search" />
+</form>
+
+@*<script type="text/javascript" src="~/js/knockout-3.5.0.js"></script>
+<div>
+    <br />
+    <br />
+    <input type="text" name="txtFirstName" data-bind="value: Name">
+    <input type="text" name="txtLastName" data-bind="value:LastName">
+</div>
+
+<script>
+    // Create an observable will change input of user.
+    var NameViewModel = function (fname) {
+        //observable is changing input of the user
+        this.FirstName = ko.observable(fname); //ko.observable(""),
+        //this.LastName = ko.observable(lname); //ko.observable("")
+        this.FullName = ko.computed(function () {
+            return this.FirstName()
+        }, this)
+    }
+
+    //Bind the viewModel to the view
+    ko.applyBindings(new NameViewModel("Dima", "Spektor"));
+</script>*@
+
+@*<div>
+        <br />
+        <br />
+        <p>Hello <span data-bind="text:FullName" /></p>
+        <p>First name: <input type="text" name="txtFirstName" data-bind="value:FirstName"></p>
+        <p>Last name:  <input type="text" name="txtLastName" data-bind="value:LastName"></p>
+    </div>
+    <script type="text/javascript" src="~/js/knockout-3.5.0.js"></script>
+    <script>
+        // Create an observable will change input of user.
+        var NameViewModel = function (fname, lname) {
+            //observable is changing input of the user
+            this.FirstName = ko.observable(fname); //ko.observable(""),
+            this.LastName = ko.observable(lname); //ko.observable("")
+            this.FullName = ko.computed(function () {
+                return this.FirstName() + " " + this.LastName()
+            }, this)
+        }
+
+        //Bind the viewModel to the view
+        ko.applyBindings(new NameViewModel("Dima", "Spektor"));
+    </script>*@
