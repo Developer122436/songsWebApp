@@ -10,8 +10,8 @@ using SongsProject.Models;
 namespace SongsProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190829191337_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20191008143141_InitialMigrate")]
+    partial class InitialMigrate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

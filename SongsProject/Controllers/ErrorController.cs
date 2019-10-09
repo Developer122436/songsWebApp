@@ -12,7 +12,7 @@ namespace SongsProject.Controllers
     public class ErrorController : Controller
     {
         //Inject instance of ILogger - where you need the logging functionality
-        private readonly ILogger<ErrorController> logger;
+        private readonly ILogger<ErrorController> _logger;
 
         // Inject ASP.NET Core ILogger service. Specify the Controller
         // Type as the generic parameter. This helps us identify later
@@ -25,7 +25,7 @@ namespace SongsProject.Controllers
             //The type of the class or controller into which ILogger is injected can be specified as the argument for the generic parameter of ILogger. 
             //We do this because, the fully qualified name of the class or the controller is then included in the log output as the log category. 
             //Log category is used to group the log messages.
-            this.logger = logger;
+            _logger = logger;
         }
 
         //Handling error 500 - Handling error server did not know how to handle
@@ -37,7 +37,7 @@ namespace SongsProject.Controllers
             var exceptionHandlerPathFeature =
                 HttpContext.Features.Get<IExceptionHandlerPathFeature>();
             // LogError() method logs the exception under Error category in the log
-            logger.LogError($"The path {exceptionHandlerPathFeature.Path} " +
+            _logger.LogError($"The path {exceptionHandlerPathFeature.Path} " +
                 $"threw an exception {exceptionHandlerPathFeature.Error}");
 
             return View("Error");
@@ -57,7 +57,7 @@ namespace SongsProject.Controllers
                     ViewBag.ErrorMessage = "Sorry, the resource you requested could not be found";
                     // LogWarning() method logs the message under
                     // Warning category in the log
-                    logger.LogWarning($"404 error occured. Path = " +
+                    _logger.LogWarning($"404 error occured. Path = " +
                         $"{statusCodeResult.OriginalPath} and QueryString = " +
                         $"{statusCodeResult.OriginalQueryString}");
                     break;             

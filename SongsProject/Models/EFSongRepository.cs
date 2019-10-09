@@ -54,7 +54,7 @@ namespace SongsProject.Models
                     dbEntry.ImagePath = song.ImagePath;
                 }
             }
-            context.SaveChangesAsync();
+            context.SaveChanges();
         }
 
         public Song DeleteSong(int Id)

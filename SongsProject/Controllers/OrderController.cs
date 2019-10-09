@@ -24,14 +24,13 @@ namespace SongsProject.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Checkout()
+        public IActionResult Checkout()
         {
-            await Task.Run(null);
             return View(new Order());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Checkout(Order order)
+        public IActionResult Checkout(Order order)
         {
             if (!_cart.Lines.Any()) ModelState.AddModelError("", "Sorry, your cart is empty!");
             //any validation problems are passed to the action method through the ModelState property
@@ -45,10 +44,16 @@ namespace SongsProject.Controllers
             return View(order);
         }
 
-        public async Task<IActionResult> Completed(Order order)
+        public IActionResult Completed(Order order)
         {
             _cart.Clear();
             return View(order);
+        }
+
+        [HttpGet]
+        public IActionResult Cancel()
+        {
+            return RedirectToAction("ListCountry", "Home");
         }
     }
 }

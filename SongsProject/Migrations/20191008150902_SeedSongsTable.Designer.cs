@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SongsProject.Models;
 
 namespace SongsProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191008150902_SeedSongsTable")]
+    partial class SeedSongsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,11 +270,25 @@ namespace SongsProject.Migrations
                     b.ToTable("Songs");
 
                     b.HasData(
-                        new { Id = 1, Artist = "Neta", Country = "Israel", Description = "#1 Eurovision", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "Toy", Price = 18m, Rating = 0 },
-                        new { Id = 2, Artist = "Jennifer Lopez", Country = "USA", Description = "#1 USA", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "On the floor", Price = 21m, Rating = 0 },
-                        new { Id = 3, Artist = "Ariana Grande", Country = "USA", Description = "#1 USA", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "7 Rings", Price = 22m, Rating = 0 },
-                        new { Id = 4, Artist = "Kobi Marimi", Country = "Israel", Description = "#23 Eurovision", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "Home", Price = 11m, Rating = 0 }
+                        new { Id = 1, Artist = "Neta", Country = "Israel", Description = "#1 Eurovision", MusicStyle = "Pop", Name = "Toy", Price = 18m, Rating = 0 }
                     );
+                });
+
+            modelBuilder.Entity("SongsProject.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("Password")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

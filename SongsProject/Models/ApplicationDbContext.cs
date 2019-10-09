@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SongsProject.Models.ViewModels;
 
 namespace SongsProject.Models
 {
     // Defining a DbContext in the project is what allows us 
     // to persist data to our database and populate data from the database. 
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         //Next, let’s add a constructor that takes in DbContextOptions as a parameter. the options that are passed in will 
         //be used to pass the connection string when we instantiate it at startup.
@@ -17,11 +18,13 @@ namespace SongsProject.Models
 
         public DbSet<Song> Songs { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<User> Users { get; set; }
 
-        //public override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.seed();
-        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Seed();
+            
+        }
+
     }
 }

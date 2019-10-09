@@ -60,15 +60,19 @@ namespace SongsProject
                 options.UseSqlServer(Configuration.GetSection("Data1").GetConnectionString("MyConnStr"),
                     opt => { opt.UseRowNumberForPaging(); }
             ));
-
-            services.AddDbContextPool<AppIdentityDbContext>(options =>
-                options.UseSqlServer(Configuration.GetSection("Data2").GetConnectionString("SongsStoreIdentity"),
-                    opt => { opt.UseRowNumberForPaging(); }
-            ));
-
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                 .AddEntityFrameworkStores<AppIdentityDbContext>()
-                 .AddDefaultTokenProviders();
+            //AddIdentity() method adds the default identity system configuration for the specified user and role types. IdentityUser class is provided by ASP.NET core
+            //and contains properties for UserName, PasswordHash, Email etc. This is the class that is used 
+            //by default by the ASP.NET Core Identity framework to manage registered users of your application.
+            //Similarly, IdentityRole is also a builtin class provided by ASP.NET Core Identity and contains Role information.
+            //role can be adminstrator, normal person and more.
+            // Override the default rules for passwords from passwordOptions class.
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 10;
+                options.Password.RequiredUniqueChars = 3;
+                options.Password.RequireNonAlphanumeric = false;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>();
             //By adding it as a singleton, whenever we access it from another class, 
             //it will always be the same instance throughout the app (Single instance).
             //It is first used from classes that we created.
@@ -106,7 +110,6 @@ namespace SongsProject
             services.AddHttpContextAccessor();
             //Transient components are created every time they are requested and are never shared.
             services.AddTransient<IOrderRepository, EFOrderRepository>();
-            services.AddTransient<IUserRepository, EFUserRepository>();
             // registers the services used to access session data.
             // session state which is data that is stored at the server
             // and associated with a series of requests made by a user.

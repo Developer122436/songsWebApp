@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
@@ -12,13 +13,13 @@ using System.Threading.Tasks;
 
 namespace SongsProject.Controllers
 {
-
+    // Authorize without any parameters it only checks if the user is authenticated.
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly ISongRepository repository;
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment _hostingEnvironment;
-        private string relevantPhotoOfSong;
 
         public AdminController(IHostingEnvironment hostingEnvironment, ISongRepository repo, ApplicationDbContext context)
         {
@@ -54,7 +55,6 @@ namespace SongsProject.Controllers
                     ExistingPhotoPath = song.ImagePath
                 };
 
-                relevantPhotoOfSong = song.ImagePath;
                 return View(songEditViewModel);
             }
             return View();
@@ -65,8 +65,8 @@ namespace SongsProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                string uniqueFileName = "NoImage.png";
                 string stringImagesPath = "~/images/";
+                string uniqueFileName = model.ExistingPhotoPath;
 
                 Song song = await repository.Songs
                 .FirstOrDefaultAsync(p => p.Id == model.Id);
@@ -80,14 +80,21 @@ namespace SongsProject.Controllers
 
                 if (model.Photo != null)
                 {
-                    if (!song.ImagePath.Equals(relevantPhotoOfSong))
-                    {                 
+                    FileInfo fi = new FileInfo(model.Photo.FileName);
+                    if (fi.Extension == ".JPG" || fi.Extension == ".PNG" || fi.Extension == ".GIF" || fi.Extension == ".jpg" ||
+                        fi.Extension == ".png" || fi.Extension == ".gif")
+                    {
+                        // The image must be uploaded to the images folder in wwwroot
+                        // To get the path of the wwwroot folder we are using the inject
+                        // HostingEnvironment service provided by ASP.NET Core
                         string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
                         uniqueFileName = String.Format("{0:d}",
-                                      (DateTime.Now.Ticks / 10) % 100000000) + "_" + model.Photo.FileName;
+                              (DateTime.Now.Ticks / 10) % 100000000) + "_" + model.Photo.FileName;
 
-                        string newFilePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        model.Photo.CopyTo(new FileStream(newFilePath, FileMode.Create));
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        // Use CopyTo() method provided by IFormFile interface to
+                        // copy the file to wwwroot/images folder 
+                        model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
 
                     }
                 }
@@ -178,7 +185,7 @@ namespace SongsProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int Id)
+        public IActionResult Delete(int Id)
         {
             Song deletedSong = repository.DeleteSong(Id);
             if (deletedSong != null)
@@ -237,7 +244,7 @@ namespace SongsProject.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Cancel()
+        public IActionResult Cancel()
         {
             return RedirectToAction("ListCountry", "Home");
         }

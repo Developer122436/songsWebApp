@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@*Inject SignInManager, so we could check if the user is signed-in*@
+@inject SignInManager<IdentityUser> SignInManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,8 +9,12 @@
     <link rel="stylesheet" asp-href-include="~/lib/fontawesome/css/*.css" />
     <title>SongsStore</title>
     <link asp-href-include="~/css/site.css" rel="stylesheet" />
+
     <environment include="Development">
         <link asp-href-include="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+        <script src="~/lib/jquery/jquery.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     </environment>
     @*On href we will run production and staging environment files*@
     @*integrity link used for check subsource integrity - If the file have retrieve malicious altered*@
@@ -21,13 +28,17 @@
     <environment exclude="Development">
         <link rel="stylesheet"
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
               crossorigin="anonymous"
               asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only"
               asp-fallback-test-property="position"
               asp-fallback-test-value="absolute"
               asp-suppress-fallback-integrity="true">
+        <script src="/lib/jquery/dist/jquery.min.js"></script>
+        <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js">
+        </script>
     </environment>
 
 </head>
@@ -35,12 +46,27 @@
     <div class="p-1 bg-dark" role="navigation">
         <div class="row">
             <li><a class="col navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="ListCountry">Home Page</a></li>
-            <li><a class="col navbar-brand text-white" asp-area="" asp-controller="User" asp-action="Login">Log in admin</a></li>
             <li>
                 <div class="col-5 text-right">
                     @await Component.InvokeAsync("CartSummary")
                 </div>
             </li>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <a asp-controller="Admin" asp-action="Index" class="col navbar-brand text-white">Go to Admin Menu</a>
+                <li class="btn btn-light">
+                    <form method="post" asp-controller="Account" asp-action="Logout">
+                        <button type="submit" style="width:auto"
+                                class="nav-link btn btn-link py-0">
+                            Logout @User.Identity.Name
+                        </button>
+                    </form>
+                </li>
+            }
+            else
+            {
+                <li><a class="col navbar-brand text-white" asp-area="" asp-controller="Account" asp-action="Login">Log in admin</a></li>
+            }
         </div>
     </div>
     <div class="container body-content">

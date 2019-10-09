@@ -3,9 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SongsProject.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialMigrate : Migration
     {
-        // Will update the table 
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -98,7 +97,7 @@ namespace SongsProject.Migrations
                 table: "CartLine",
                 column: "SongId");
         }
-        // Will undo changes that was make on up
+
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

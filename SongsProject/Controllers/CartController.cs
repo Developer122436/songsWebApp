@@ -39,7 +39,6 @@ namespace SongsProject.Controllers
         public RedirectToActionResult RemoveFromCart(int id,
             string returnUrl)
         {
-            //HttpContext.Session.GetString("Id");
             var song = repository.Songs
                 .FirstOrDefault(p => p.Id == id);
             if (song != null) cart.RemoveLine(song);
