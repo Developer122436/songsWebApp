@@ -4,7 +4,7 @@ Link project: https://github.com/Developer122436/Songs-Project
 
 At the same time I was studying my degree I learned to develop web sites through independent learning from books in English language. I developed the site using the ASP.NET Core platform through the use of HTML, CSS, JS and Bootstrap on the client side and using C# on the server side when the implementation was through MVC in the NET Core 2.1. The site shows a database developed in the MSSQL system. Through the site you can add, edit and delete songs from the database.
 
-Log in: User = dimaspektor12@gmail.com , Password = Dimaspektor12
+Log in admin: User = dimaspektor12@gmail.com , Password = Dimaspektor12
 
 Home Page:
 
