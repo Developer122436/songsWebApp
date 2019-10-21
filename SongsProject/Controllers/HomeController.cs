@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SongsProject.Infrastructure;
 using SongsProject.Models;
 using SongsProject.Models.ViewModels;
-using System;
 using System.Linq;
 
 namespace SongsProject.Controllers
@@ -85,6 +85,7 @@ namespace SongsProject.Controllers
             });
         }
 
+        [Authorize(Policy = "UserRolePolicy")]
         public RedirectToActionResult AddRating(int id)
         {
             _repository.AddRating(id);

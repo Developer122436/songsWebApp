@@ -8,13 +8,12 @@ using SongsProject.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SongsProject.Controllers
 {
     // Authorize without any parameters it only checks if the user is authenticated.
-    [Authorize]
+    [Authorize(Policy = "AdminRolePolicy")]
     public class AdminController : Controller
     {
         private readonly ISongRepository repository;

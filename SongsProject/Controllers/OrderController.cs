@@ -1,17 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
 using SongsProject.Models;
-using SongsProject.Models.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SongsProject.Controllers
 {
+    [Authorize(Policy = "UserRolePolicy")]
     public class OrderController : Controller
     {
         private readonly Cart _cart;
@@ -46,14 +40,27 @@ namespace SongsProject.Controllers
 
         public IActionResult Completed(Order order)
         {
-            _cart.Clear();
-            return View(order);
+            if (!_cart.Lines.Any()) ModelState.AddModelError("", "Sorry, your cart is empty!");
+
+            if (ModelState.IsValid)
+            {
+                _cart.Clear();
+                return View(order);
+            }     
+            return RedirectToAction("AccessDenied", "Order");
         }
 
         [HttpGet]
         public IActionResult Cancel()
         {
             return RedirectToAction("ListCountry", "Home");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

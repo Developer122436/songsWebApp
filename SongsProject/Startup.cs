@@ -117,6 +117,26 @@ namespace SongsProject
             //The AddMemoryCache method call sets up the in-memory data store.
             services.AddMemoryCache();
             services.AddDistributedMemoryCache();
+
+            services.AddAuthorization(options =>
+            {
+               // ClaimType comparison is case in-sensitive, ClaimValue comparison is case sensitive
+                options.AddPolicy("DeleteRolePolicy",
+                    policy => policy.RequireClaim("Delete Role", "true").RequireRole("Admin"));
+
+                options.AddPolicy("EditRolePolicy",
+                    policy => policy.RequireClaim("Edit Role", "true").RequireRole("Admin"));
+
+                options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
+
+                options.AddPolicy("UserRolePolicy", policy =>
+                  policy.RequireRole("User"));
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/Administration/AccessDenied");
+            });
         }
 
         //This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,12 +1,12 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SongsProject.Models;
 using SongsProject.Models.ViewModels;
+using System.Linq;
 
 namespace SongsProject.Controllers
 {
+    [Authorize(Policy = "UserRolePolicy")]
     public class CartController : Controller
     {
         private readonly Cart cart;

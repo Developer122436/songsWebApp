@@ -1,13 +1,11 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SongsProject.Models;
 using SongsProject.Models.ViewModels;
+using System.Threading.Tasks;
 
 namespace SongsProject.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         //UserManager<IdentityUser> class contains the required methods to manage users in the underlying data store. 
@@ -71,8 +69,16 @@ namespace SongsProject.Controllers
                 // isPersistent : false - created session cookie of user in browser
                 if (result.Succeeded)
                 {
+                    // If the user is signed in and in the Admin role, then it is
+                    // the Admin user that is creating a new user. So redirect the
+                    // Admin user to ListRoles action
+                    if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("ListUsers", "Administration");
+                    }
+
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 // If there are any errors, add them to the ModelState object
@@ -118,7 +124,7 @@ namespace SongsProject.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Admin");
+                        return RedirectToAction("ListCountry", "Home");
                     }
                 }
 
@@ -133,6 +139,13 @@ namespace SongsProject.Controllers
         public IActionResult Cancel()
         {
             return RedirectToAction("ListCountry", "Home");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

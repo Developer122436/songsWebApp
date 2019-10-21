@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SongsProject.Models.ViewModels;
+using System.Linq;
 
 namespace SongsProject.Models
 {
@@ -23,7 +24,13 @@ namespace SongsProject.Models
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Seed();
-            
+
+            //Not want to allow a role to be deleted, if there are rows in the 
+            //child table(AspNetUserRoles) which point to a role in the parent table(AspNetRoles).
+            foreach (var foreignKey in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            }
         }
 
     }
