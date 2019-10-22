@@ -10,7 +10,7 @@ Home Page:
 
 Log in Page:
 
-
+![3](https://user-images.githubusercontent.com/55385057/67260049-d6131e80-f4a1-11e9-806c-28a1e662fdd8.JPG)
 
 Order Songs:
 
@@ -20,8 +20,9 @@ Admin Page:
 
 ![3](https://user-images.githubusercontent.com/26526551/59967970-028e4c80-953b-11e9-901d-f23ec053da1c.JPG)
 
-Create song by admin:
+Song by admin:
 
-![Admin](https://user-images.githubusercontent.com/51830348/63208973-b5b29680-c0e3-11e9-8b94-54bdae5cb0d6.JPG)
+![4](https://user-images.githubusercontent.com/55385057/67260106-2ab69980-f4a2-11e9-8457-33f7255a7c79.JPG)
+
 
 
