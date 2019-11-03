@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SongsProject.Models;
 using SongsProject.Models.ViewModels;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SongsProject.Controllers
 {
@@ -27,24 +29,23 @@ namespace SongsProject.Controllers
             });
         }
 
-        public RedirectToActionResult AddToCart(int id, string returnUrl)
+        public async Task<RedirectToActionResult> AddToCart(int id, string returnUrl)
         {
             //HttpContext.Session.GetString("Id");
-            var song = repository.Songs
-                .FirstOrDefault(p => p.Id == id);
+            var song = await repository.Songs
+                .FirstOrDefaultAsync(p => p.Id == id);
             if (song != null) cart.AddItem(song, 1);
             return RedirectToAction("Index", new {returnUrl});
         }
 
-        public RedirectToActionResult RemoveFromCart(int id,
+        public async Task<RedirectToActionResult> RemoveFromCart(int id,
             string returnUrl)
         {
-            var song = repository.Songs
-                .FirstOrDefault(p => p.Id == id);
+            var song = await repository.Songs
+                .FirstOrDefaultAsync(p => p.Id == id);
             if (song != null) cart.RemoveLine(song);
             return RedirectToAction("Index", new {returnUrl});
         }
-
 
     }
 }

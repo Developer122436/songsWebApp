@@ -16,21 +16,53 @@ namespace SongsProject
         private IConfiguration Configuration { get; }
 
         // Access Configuration Sources is Using IConfiguration Service
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             // Configuration Sources have appsettings.json,appsettings.Development.jason,
             // User secrets,Environment variables and Command-line arguments
             // Command-line override environment variable
             Configuration = configuration;
+
+                var builder = new ConfigurationBuilder()
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile("appsettings.json",
+                         optional: false,
+                         reloadOnChange: true)
+            .AddEnvironmentVariables();
+
+                if (env.IsDevelopment())
+                {
+                    builder.AddUserSecrets<Startup>();
+                }
+
+                Configuration = builder.Build();
         }
 
         // This method gets called by the runtime. 
         // Use this method to add services to the dependency injection container.
         public void ConfigureServices(IServiceCollection services)
-        {
-          
+        {           
             // Add the filter globally MVC.
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //This allows us to communicate with the database wherever 
+            //we need to within the app without manually having to create new instances.
+            services.AddDbContextPool<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("MyConnStr"),
+                    opt => { opt.UseRowNumberForPaging(); }
+            ));
+
+            services.AddAuthentication()
+                .AddGoogle(options =>
+            {
+                options.ClientId = "464206860093-3a2gp7tlnkfmqb3q5jct9cfevrhq7fil.apps.googleusercontent.com";
+                options.ClientSecret = "30D9B8VviyssWHTvXMNSJL5a";
+            })
+            .AddFacebook(options =>
+            {
+                options.AppId = "414787619203517";
+                options.AppSecret = "51995b65a494426373ec077ea9052175";
+            });
 
             services.AddHsts(options =>
             {
@@ -54,12 +86,7 @@ namespace SongsProject
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //This allows us to communicate with the database wherever 
-            //we need to within the app without manually having to create new instances.
-            services.AddDbContextPool<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetSection("Data1").GetConnectionString("MyConnStr"),
-                    opt => { opt.UseRowNumberForPaging(); }
-            ));
+            
             //AddIdentity() method adds the default identity system configuration for the specified user and role types. IdentityUser class is provided by ASP.NET core
             //and contains properties for UserName, PasswordHash, Email etc. This is the class that is used 
             //by default by the ASP.NET Core Identity framework to manage registered users of your application.
@@ -137,6 +164,8 @@ namespace SongsProject
             {
                 options.AccessDeniedPath = new PathString("/Administration/AccessDenied");
             });
+
+        
         }
 
         //This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
