@@ -98,8 +98,10 @@ namespace SongsProject
                 options.Password.RequiredLength = 10;
                 options.Password.RequiredUniqueChars = 3;
                 options.Password.RequireNonAlphanumeric = false;
+                options.SignIn.RequireConfirmedEmail = true;
             })
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
             //By adding it as a singleton, whenever we access it from another class, 
             //it will always be the same instance throughout the app (Single instance).
             //It is first used from classes that we created.
@@ -147,7 +149,7 @@ namespace SongsProject
 
             services.AddAuthorization(options =>
             {
-               // ClaimType comparison is case in-sensitive, ClaimValue comparison is case sensitive
+                // ClaimType comparison is case in-sensitive, ClaimValue comparison is case sensitive
                 options.AddPolicy("DeleteRolePolicy",
                     policy => policy.RequireClaim("Delete Role", "true").RequireRole("Admin"));
 
