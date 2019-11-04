@@ -6,7 +6,7 @@ Home Page:
 
 ![1](https://user-images.githubusercontent.com/55385057/67259966-6f8e0080-f4a1-11e9-9b3e-f451e0f8b37e.JPG)
 
-![2](https://user-images.githubusercontent.com/55385057/67259967-70269700-f4a1-11e9-8411-5286f47f74fd.JPG)
+![123](https://user-images.githubusercontent.com/55385057/68146895-9a686200-ff41-11e9-828a-3c41a4ddc6fa.JPG)
 
 Log in Page:
 
