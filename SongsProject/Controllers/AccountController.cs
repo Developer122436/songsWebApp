@@ -1,11 +1,7 @@
-﻿
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MimeKit;
-using System.Net;
-using System.Net.Mail;
 using SongsProject.Models.ViewModels;
 using System.Linq;
 using System.Security.Claims;
@@ -104,22 +100,9 @@ namespace SongsProject.Controllers
                         return RedirectToAction("ListUsers", "Administration");
                     }
 
-                    //SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
-                    //client.EnableSsl = true;
-                    //client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    //client.UseDefaultCredentials = false;
-                    //// Please insert your Email and password for sending mail
-                    //client.Credentials = new NetworkCredential("dimaspektor12@gmail.com", "######");
-                    //MailMessage message = new MailMessage();
-                    //message.To.Add(model.Email);
-                    //message.From = new MailAddress("dimaspektor12@gmail.com");
-                    //message.Subject = "Link to Confirm Email";
-                    //message.Body = confirmationLink;
-                    //client.Send(message);
-                    
                     ViewBag.ErrorTitle = "Registration successful";
                     ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
-                            "email, by clicking on the confirmation link we have emailed you";
+                            "email, by clicking on the confirmation link we will emailed you";
                     return View("Error");
                 
                 }
@@ -372,19 +355,6 @@ namespace SongsProject.Controllers
                     // Build the password reset link
                     var passwordResetLink = Url.Action("ResetPassword", "Account",
                             new { email = model.Email, token = token }, Request.Scheme);
-
-                    //SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
-                    //client.EnableSsl = true;
-                    //client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    //client.UseDefaultCredentials = false;
-                    //// Please insert your Email and password for sending mail
-                    //client.Credentials = new NetworkCredential("dimaspektor12@gmail.com", "#####");
-                    //MailMessage message = new MailMessage();
-                    //message.To.Add(model.Email);
-                    //message.From = new MailAddress("dimaspektor12@gmail.com");
-                    //message.Subject = "Link to reset password";
-                    //message.Body = passwordResetLink;
-                    //client.Send(message);
 
                     // Log the password reset link
                     _logger.Log(LogLevel.Warning, passwordResetLink);

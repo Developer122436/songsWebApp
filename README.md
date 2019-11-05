@@ -6,11 +6,11 @@ Home Page:
 
 ![1](https://user-images.githubusercontent.com/55385057/67259966-6f8e0080-f4a1-11e9-9b3e-f451e0f8b37e.JPG)
 
-![2](https://user-images.githubusercontent.com/55385057/67259967-70269700-f4a1-11e9-8411-5286f47f74fd.JPG)
+![123](https://user-images.githubusercontent.com/55385057/68146895-9a686200-ff41-11e9-828a-3c41a4ddc6fa.JPG)
 
 Log in Page:
 
-![3](https://user-images.githubusercontent.com/55385057/67260049-d6131e80-f4a1-11e9-806c-28a1e662fdd8.JPG)
+![login](https://user-images.githubusercontent.com/55385057/68146600-0a2a1d00-ff41-11e9-85d5-e1d003901e69.JPG)
 
 Order Songs:
 
