@@ -9,6 +9,7 @@ using SongsProject.Models.ViewModels;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System;
 
 namespace SongsProject.Controllers
 {
@@ -194,7 +195,7 @@ namespace SongsProject.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(
-                    model.Email, model.Password, model.RememberMe, false);
+                    model.Email, model.Password, model.RememberMe, true);
 
                 var user = await _userManager.FindByEmailAsync(model.Email);
 
@@ -218,6 +219,11 @@ namespace SongsProject.Controllers
                     {
                         return RedirectToAction("ListCountry", "Home");
                     }
+                }
+
+                if (result.IsLockedOut)
+                {
+                    return View("AccountLocked");
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
@@ -428,6 +434,13 @@ namespace SongsProject.Controllers
                     var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
                     if (result.Succeeded)
                     {
+                        // Upon successful password reset and if the account is lockedout, set
+                        // the account lockout end date to current UTC date time, so the user
+                        // can login with the new password
+                        if (await _userManager.IsLockedOutAsync(user))
+                        {
+                            await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow);
+                        }
                         return View("ResetPasswordConfirmation");
                     }
                     // Display validation errors. For example, password reset token already
