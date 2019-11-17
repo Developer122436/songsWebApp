@@ -180,6 +180,32 @@ namespace SongsProject.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("SongsProject.Models.Book", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Author");
+
+                    b.Property<string>("Country");
+
+                    b.Property<string>("Date");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Books");
+
+                    b.HasData(
+                        new { ID = 1, Author = "Neta", Country = "Israel", Date = "#1 Eurovision", Name = "Toy" },
+                        new { ID = 2, Author = "Neta", Country = "Israel", Date = "#1 Eurovision", Name = "Toy" },
+                        new { ID = 3, Author = "Neta", Country = "Israel", Date = "#1 Eurovision", Name = "Toy" },
+                        new { ID = 4, Author = "Neta", Country = "Israel", Date = "#1 Eurovision", Name = "Toy" }
+                    );
+                });
+
             modelBuilder.Entity("SongsProject.Models.CartLine", b =>
                 {
                     b.Property<int>("CartLineID")

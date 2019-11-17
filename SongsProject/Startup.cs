@@ -43,7 +43,7 @@ namespace SongsProject
         public void ConfigureServices(IServiceCollection services)
         {           
             // Add the filter globally MVC.
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //This allows us to communicate with the database wherever 
             //we need to within the app without manually having to create new instances.
