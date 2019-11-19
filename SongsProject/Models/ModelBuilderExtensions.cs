@@ -57,7 +57,7 @@ namespace SongsProject.Models
                              ImagePath = "~/images/NoImage.png",
                              Rating = 0
                          }
-                     );
+                     );        
         }
     }
 }

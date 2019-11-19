@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        // Checking if the input is number or not
+        function checkIfValidNumbers(param1, param2) {
+            if (param1 % 1 !== 0) {
+                alert("first value is not a valid number");
+                return false;
+            }
+            if (param2 % 1 !== 0) {
+                alert("second value is not a valid number");
+                return false;
+            }
+            return true;
+        }
+
+        // Checking if the user press on radio type
+        document.addEventListener("click", function (e) {
+            let param1 = document.querySelector("#param1").value;
+            let param2 = document.querySelector("#param2").value;
+
+            console.log(param1, param2);
+
+            if (e.target.value == "addition") {
+                if (checkIfValidNumbers(param1, param2) == true) {
+                    document.querySelector("#answer").innerText = "= " + (Number(document.querySelector("#param1").value) + Number(document.querySelector("#param2").value));
+                }
+            }
+            if (e.target.value == "subtraction") {
+                if (checkIfValidNumbers(param1, param2) == true) {
+                    document.querySelector("#answer").innerText = "= " + (Number(document.querySelector("#param1").value) - Number(document.querySelector("#param2").value));
+                }
+            }
+            if (e.target.value == "multiplication") {
+                if (checkIfValidNumbers(param1, param2) == true) {
+                    document.querySelector("#answer").innerText = "= " + (Number(document.querySelector("#param1").value) * Number(document.querySelector("#param2").value));
+                }
+            }
+            if (e.target.value == "division") {
+                if (checkIfValidNumbers(param1, param2) == true) {
+                    document.querySelector("#answer").innerText = "= " + (Number(document.querySelector("#param1").value) / Number(document.querySelector("#param2").value));
+                }
+            }
+        });
+    </script>
+
+    <style>
+        #container {
+            width: 500px;
+        }
+
+        /*This is horizontal columns*/
+        #container {
+            display: inline-block;
+        }
+
+        #param1, #param2, #answer {
+            float: left;
+        }
+        
+        #input-container input {
+            width: 50px;
+            /*margin-right is it how much of the section will have spaced right the element*/
+            margin-right: 10px;
+        }
+
+        #input-container {
+            height: 22px;
+            width: 200px;
+        }
+
+        #operator-container {
+            float: left;
+        }
+
+        #operator-container input {
+            /*The vertical-align property sets the vertical alignment of an element.*/
+            vertical-align: baseline;
+        }
+
+        #left {
+            width: 28%;
+            float: left;
+            /*An element's padding is the space between its content and its border.
+             The padding-top property sets the top padding (space) of an element.*/
+            padding-top: 30px;
+        }
+
+        #right {
+            width: 68%;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h3>Calculator</h3>
+
+        <div id="left">
+            <div id="input-container">
+                <input id="param1" type="text">
+                <input id="param2" type="text">
+                <div id="answer">= </div>
+            </div>
+        </div>
+
+        <div id="right">
+            <div id="operator-container">
+                <input type="radio" class="radio" name="operation" value="addition">+ 
+                <br>
+                <input type="radio" class="radio" name="operation" value="subtraction">- 
+                <br>
+                <input type="radio" class="radio" name="operation" value="multiplication">* 
+                <br>
+                <input type="radio" class="radio" name="operation" value="division">/ 
+            </div>
+        </div>
+    </div>
+</body>
+</html>

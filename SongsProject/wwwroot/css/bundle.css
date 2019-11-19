@@ -1,4 +1,21 @@
-.imageThumbnail {
-    height:50px;
-    width:50px;
+#imageThumbnail {
+    height:200px;
+    width:200px;
+}
+#imageStandart {
+    height:300px;
+    width:auto;
+}
+#imageSmall {
+    width:100px;
+    height:100px;
+}
+#autoWidth {
+    width: auto;
+}
+#floatRight {
+    float: right;
+}
+.noneDisplay {
+    display: none;
 }

@@ -2,14 +2,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title</title>
+    <link href="~/lib/fontawesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
     <environment include="Development">
-        <link asp-href-include="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-        <script src="~/lib/jquery/jquery.js"></script>
+        <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+        <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
         <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     </environment>
+    @*On href we will run production and staging environment files*@
+    @*integrity link used for check subsource integrity - If the file have retrieve malicious altered*@
+    @*ggOyR0iXCbMQv3Xipma34MD - this have to be match from what the browser loaded else it is altered*@
+    @*If the file download from CDN(Proxy server) is failed(do crush) it will run asp-fallback-href*@
+    @*In case CDN will crush we can use this minified bootstrap files*@
+    @*asp-suppress-fallback-integrity="true" - true it is means that the browser will not check integrity
+        files downloaded asp-fallback-href even if will be crush - we can trust our server*@
+    @*The following 3 attributes and their associated values are used to check if the CDN is down:
+        asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"*@
     <environment exclude="Development">
         <link rel="stylesheet"
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -20,6 +32,7 @@
               asp-fallback-test-property="position"
               asp-fallback-test-value="absolute"
               asp-suppress-fallback-integrity="true">
+        <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
         <script src="/lib/jquery/dist/jquery.min.js"></script>
         <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
         <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js">

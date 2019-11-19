@@ -13,28 +13,7 @@
      class="btn-group pull-right m-1">
 </div>
 
-@*<div>
-    <br />
-    <br />
-    <p>Hello <span data-bind="text:FullName" /></p>
-    <p>First name: <input type="text" name="txtFirstName" data-bind="value:FirstName"></p>
-    <p>Last name:  <input type="text" name="txtLastName" data-bind="value:LastName"></p>
-</div>
-<script type="text/javascript" src="~/js/knockout-3.5.0.js"></script>
-<script>
-    // Create an observable will change input of user.
-    var NameViewModel = function (fname, lname) {
-        //observable is changing input of the user
-        this.FirstName = ko.observable(fname); //ko.observable(""),
-        this.LastName = ko.observable(lname); //ko.observable("")
-        this.FullName = ko.computed(function () {
-            return this.FirstName() + " " + this.LastName()
-        }, this)
-    }
 
-    //Bind the viewModel to the view
-    ko.applyBindings(new NameViewModel("Dima", "Spektor"));
-</script>*@
 
 
 
