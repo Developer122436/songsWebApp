@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿#imageThumbnail {
     height:200px;
     width:200px;
@@ -39,4 +40,9 @@
 }
 .marginLastRowSongSummary {
     margin: 0 0 16px 0;
+=======
+﻿.imageThumbnail {
+    height:200px;
+    width:200px;
+>>>>>>> 594c5a2c1970f4fc7f90519c25a7cd3d9b06e29b
 }
