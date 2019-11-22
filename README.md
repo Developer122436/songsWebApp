@@ -6,7 +6,7 @@ Home Page:
 
 ![Home](https://user-images.githubusercontent.com/55385057/69410886-95166000-0d14-11ea-954e-a04a6bae94b7.JPG)
 
-![2](https://user-images.githubusercontent.com/55385057/69411006-d3138400-0d14-11ea-9701-85b98ead2ac6.JPG)
+![image](https://user-images.githubusercontent.com/55385057/69415607-98fab000-0d1d-11ea-9ded-6ee26e2fb380.png)
 
 Log in Page:
 
@@ -14,7 +14,7 @@ Log in Page:
 
 Order Songs:
 
-![4](https://user-images.githubusercontent.com/55385057/67260208-d65fe980-f4a2-11e9-82d0-a4928ad5880b.JPG)
+![image](https://user-images.githubusercontent.com/55385057/69415501-6a7cd500-0d1d-11ea-900f-f3c246e97b3c.png)
 
 Admin Page:
 
