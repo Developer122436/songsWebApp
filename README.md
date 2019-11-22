@@ -4,9 +4,9 @@ At the same time I was studying my degree I learned to develop web sites through
 
 Home Page:
 
-![Home](https://user-images.githubusercontent.com/55385057/69410886-95166000-0d14-11ea-954e-a04a6bae94b7.JPG)
+![image](https://user-images.githubusercontent.com/51830348/69422864-7cff0a80-0d2d-11ea-95dd-4a9f62d26b80.png)
 
-![4](https://user-images.githubusercontent.com/55385057/69415912-24744100-0d1e-11ea-96e3-f3b017770256.JPG)
+![image](https://user-images.githubusercontent.com/51830348/69423066-e41cbf00-0d2d-11ea-866c-c3b55fc354af.png)
 
 Log in Page:
 
