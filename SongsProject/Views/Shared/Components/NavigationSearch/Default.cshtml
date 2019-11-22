@@ -1,8 +1,8 @@
 ﻿<form class="text-center" asp-route-songPage="1" asp-route-Name="@ViewBag.Name" asp-action="ListNames" asp-controller="Home" method="get">
     <div>
-        <h3><u>Searching song through name:</u></h3>
+        <h3><span class="whiteText"><u>Searching song through name:</u></span></h3>
     </div>
-    @*<input type="text" name="Name" data-bind="value: Name" value="@ViewBag.Name" />*@
+   
     <input type="text" name="Name" value="@ViewBag.Name" />
     <input class="btn btn-primary" type="submit" value="Search" />
 </form>

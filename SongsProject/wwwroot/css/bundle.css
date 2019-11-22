@@ -3,8 +3,10 @@
     width:200px;
 }
 #imageStandart {
-    height:300px;
-    width:auto;
+    height: 300px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
 }
 #imageSmall {
     width:100px;
@@ -18,4 +20,23 @@
 }
 .noneDisplay {
     display: none;
+}
+.marginPriceRatingLabel {
+    margin: 3px 3px 0 0;
+}
+.hrSongSummary {
+    border: 1px solid;
+    margin: 8px 0;
+}
+.centerDetailsSongSummary {
+    text-align: center;
+}
+.bodyLayout {
+    background-color: #006666;
+}
+.whiteText {
+    color: #f8f9fa;
+}
+.marginLastRowSongSummary {
+    margin: 0 0 16px 0;
 }
