@@ -1,0 +1,62 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    
+    <environment include="Development">
+        <link href="~/css/bundle.css" rel="stylesheet" />
+        <link href="~/lib/fontawesome/css/font-awesome.css" rel="stylesheet" />
+        <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    </environment>
+    @*On href we will run production and staging environment files*@
+    @*integrity link used for check subsource integrity - If the file have retrieve malicious altered*@
+    @*ggOyR0iXCbMQv3Xipma34MD - this have to be match from what the browser loaded else it is altered*@
+    @*If the file download from CDN(Proxy server) is failed(do crush) it will run asp-fallback-href*@
+    @*In case CDN will crush we can use this minified bootstrap files*@
+    @*asp-suppress-fallback-integrity="true" - true it is means that the browser will not check integrity
+        files downloaded asp-fallback-href even if will be crush - we can trust our server*@
+    @*The following 3 attributes and their associated values are used to check if the CDN is down:
+        asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"*@
+    <environment exclude="Development">
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+              crossorigin="anonymous"
+              asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only"
+              asp-fallback-test-property="position"
+              asp-fallback-test-value="absolute"
+              asp-suppress-fallback-integrity="true">
+        <link rel="stylesheet" href="~/lib/fontawesome/css/font-awesome.min.css" asp-append-version="true" />
+        <link href="~/css/bundle.min.css" rel="stylesheet" asp-append-version="true" />
+        <script src="/lib/jquery/dist/jquery.min.js"></script>
+        <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js">
+        </script>
+    </environment>
+</head>
+<body class="m-1 p-1">
+    <div class="bg-info p-2 row">
+        <div class="col">
+            <h4>@ViewBag.Title</h4>
+        </div>
+    </div>
+    @if (TempData["message"] != null)
+    {
+        <div class="alert alert-success">@TempData["message"]</div>
+    }
+    <div>
+        @RenderBody()
+    </div>
+    @if (IsSectionDefined("Scripts"))
+    {
+        @RenderSection("Scripts", required: true)
+    }
+</body>
+</html>
