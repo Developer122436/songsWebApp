@@ -4,8 +4,8 @@
     Layout = "_SecondLayout";
 }
 
-<div class="text-danger" asp-validation-summary="All"></div>
 <form asp-action="Register" asp-controller="Account" method="post">
+    <div class="text-danger" asp-validation-summary="All"></div>
     <div class="form-group">
         <label asp-for="Email"></label>
         <div><span asp-validation-for="Email" class="text-danger"></span></div>

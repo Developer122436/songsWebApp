@@ -37,9 +37,7 @@ namespace SongsProject.Controllers
                 Songs = _repo.Songs
                     .Where(p => Country == null || p.Country == Country)
                     .OrderByDescending(p => p.Rating)
-                    //Skip - Skip on the table rows
                     .Skip((songPage - 1) * PageSize)
-                    //Take - Take number of rows
                     .Take(PageSize),
                 PagingInfo = new PagingInfo
                 {

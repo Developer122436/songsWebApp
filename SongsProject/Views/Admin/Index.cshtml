@@ -21,40 +21,39 @@
     </tr>
     @foreach (var item in Model)
     {
-    <tr>
-        <td id="audioStyleIndex">
-            <span>
-                <audio controls>
-                    <source src="@Url.Content(item.AudioPath)" type="audio/mp3" />
-                </audio>
-            </span>
-        </td>
-        <td><img src="@Url.Content(item.ImagePath)" id="imageSmall" /></td>
-        <td>@item.Name</td>
-        <td>@item.Artist</td>
-        <td>@item.Country</td>
-        <td>@item.Description</td>
-        <td>@item.MusicStyle</td>
-        <td>@item.Rating</td>
-        <td class="text-right">@item.Price.ToString("c")</td>
-        <td class="text-center">
-            <form asp-action="Delete" method="post">
-                <a asp-action="Edit" class="btn btn-sm btn-warning"
-                   asp-route-Id="@item.Id">
-                    Edit
-                </a>
-                <input type="hidden" name="Id" value="@item.Id" />
-                <button type="submit" class="btn btn-danger btn-sm">
-                    Delete
-                </button>
-            </form>
-        </td>
-    </tr>
+        <tr>
+            <td id="audioStyleIndex">
+                <span>
+                    <audio controls>
+                        <source src="@Url.Content(item.AudioPath)" type="audio/mp3" />
+                    </audio>
+                </span>
+            </td>
+            <td><img src="@Url.Content(item.ImagePath)" id="imageSmall" /></td>
+            <td>@item.Name</td>
+            <td>@item.Artist</td>
+            <td>@item.Country</td>
+            <td>@item.Description</td>
+            <td>@item.MusicStyle</td>
+            <td>@item.Rating</td>
+            <td class="text-right">@item.Price.ToString("c")</td>
+            <td class="text-center">
+                <form asp-action="Delete" method="post">
+                    <a asp-action="Edit" class="btn btn-sm btn-warning"
+                       asp-route-Id="@item.Id">
+                        Edit
+                    </a>
+                    <input type="hidden" name="Id" value="@item.Id" />
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
     }
 </table>
 
 <div>
-    @*<a asp-action="ImportToExcel" class="btn btn-primary">Import</a>*@
     <a asp-action="Create" class="btn btn-primary">Add Song</a>
     <a asp-action="ExportToExcel" class="btn btn-primary">Export</a>
     <a asp-action="Cancel" class="btn btn-danger">Cancel</a>
