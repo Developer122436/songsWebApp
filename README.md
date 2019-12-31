@@ -1,7 +1,7 @@
 # Songs Site
 
 The site was developed through independent learning from eBook and watching youtube in English language. 
-The site is songs site, I developed the site using the ASP.NET Core platform through the use of HTML5, CSS3, jQuery and Bootstrap on the client-side and using C#, MVC And Entity Framework Core on the server-side. The site shows a database developed in the MSSQL system. Through the site you can add, edit and delete songs from the database and more implementations.
+The site is songs site, I developed the site using the ASP.NET Core platform through the use of HTML5, CSS3, jQuery and Bootstrap on the client-side and using C#, MVC And Entity Framework Core on the server-side. The site shows a database developed in the MSSQL system. The site is implemented CRUD operations through connection to MSSQL and more implementations.
 
 Home Page:
 
