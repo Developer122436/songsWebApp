@@ -8,6 +8,7 @@ using SongsProject.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SongsProject.Controllers
@@ -58,10 +59,10 @@ namespace SongsProject.Controllers
                 return View(songEditViewModel);
             }
             return View();
-       }
+        }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(SongEditViewModel model)
+        public IActionResult Edit(SongEditViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -70,8 +71,8 @@ namespace SongsProject.Controllers
                 string filePhotoName = model.ExistingPhotoPath;
                 string fileAudioName = model.ExistingAudioPath;
 
-                Song song = await repository.Songs
-                .FirstOrDefaultAsync(p => p.Id == model.Id);
+                Song song = repository.Songs
+                .FirstOrDefault(p => p.Id == model.Id);
                 song.Name = model.Name;
                 song.Artist = model.Artist;
                 song.Description = model.Description;
@@ -109,13 +110,13 @@ namespace SongsProject.Controllers
                     if (fi.Extension == ".MP3" || fi.Extension == ".WAV" || fi.Extension == ".mp3" ||
                         fi.Extension == ".wav")
                     {
-                      
+
                         string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "audios");
                         fileAudioName = String.Format("{0:d}",
                               (DateTime.Now.Ticks / 10) % 100000000) + "_" + model.Audio.FileName;
 
                         string filePath = Path.Combine(uploadsFolder, fileAudioName);
-                       
+
                         model.Audio.CopyTo(new FileStream(filePath, FileMode.Create));
 
                     }
@@ -129,14 +130,14 @@ namespace SongsProject.Controllers
             }
 
             return View(model);
-            
+
         }
 
         [HttpGet]
         public IActionResult Create() => View("Create", new SongsCreateListViewModel());
 
         [HttpPost]
-        public async Task<IActionResult> Create(SongsCreateListViewModel model)
+        public IActionResult Create(SongsCreateListViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -194,15 +195,12 @@ namespace SongsProject.Controllers
                     Price = model.Price,
                     Country = model.Country,
                     MusicStyle = model.MusicStyle,
-                    Rating = 0,
                     ImagePath = stringImagesPath + filePhotoName,
                     AudioPath = stringAudioPath + fileAudioName
                 };
 
-                newSong.Rating = 0;
-                _context.Songs.Add(newSong);
+                repository.SaveSong(newSong);
 
-                await _context.SaveChangesAsync();
                 TempData["message"] = $"{newSong.Name} has been created";
                 return RedirectToAction("Index", new { id = newSong.Id });
 
