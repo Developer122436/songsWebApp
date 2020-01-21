@@ -23,6 +23,15 @@
     float: right;
 }
 
+#borderSongSummary {
+    border-style: solid;
+}
+
+#audioStyleIndex {
+    width: 100px;
+    padding-top: 15px;
+}
+
 .noneDisplay {
     display: none;
 }
@@ -39,10 +48,6 @@
 
 .centerDetailsSongSummary {
     text-align: center;
-}
-
-#borderSongSummary {
-    border-style: solid;
 }
 
 .whiteText {
@@ -90,11 +95,6 @@
     position: relative;
 }
 
-#audioStyleIndex {
-    width: 100px;
-    padding-top: 15px;
-}
-
 .controlSongSummary {
     width: 100%;
 }
@@ -103,3 +103,7 @@ audio {
     filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
 }
 
+.input-validation-error {
+    border-color: red;
+    background-color: #fee;
+}

@@ -20,17 +20,15 @@ namespace SongsProject
             Configuration = configuration;
 
             var builder = new ConfigurationBuilder()
-        .SetBasePath(env.ContentRootPath)
-        .AddJsonFile("appsettings.json",
-                     optional: false,
-                     reloadOnChange: true)
-        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+                  .SetBasePath(env.ContentRootPath)
+                  .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                  .AddEnvironmentVariables();
 
             if (env.IsDevelopment())
             {
                 builder.AddUserSecrets<Startup>();
             }
-            builder.AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
 
@@ -55,13 +53,13 @@ namespace SongsProject
                 options.AppSecret = "51995b65a494426373ec077ea9052175";
             });
 
+            // Prevent attacks of web sites that uses only HTTP - website will be only in HTTPS
+            // HSTS - response header that inform browser to connect to the website only using HTTPS
             services.AddHsts(options =>
             {
                 options.Preload = true;
                 options.IncludeSubDomains = true;
                 options.MaxAge = TimeSpan.FromDays(60);
-                options.ExcludedHosts.Add("songsproject.com");
-                options.ExcludedHosts.Add("www.songsproject.com");
             });
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -133,7 +131,6 @@ namespace SongsProject
             }
             else
             {
-
                 app.UseExceptionHandler("/Error");
 
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
