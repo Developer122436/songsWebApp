@@ -5,6 +5,9 @@ obj
 publish
 settings.json
 appsettings.json
+<<<<<<< HEAD
 appsettings.production.json
+=======
+>>>>>>> 5e7737228c1d906068f5de6fdfb1c64f67847fe1
 .vs
 .vscode
