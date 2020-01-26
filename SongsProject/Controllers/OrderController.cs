@@ -17,10 +17,27 @@ namespace SongsProject.Controllers
             _cart = cartService;
         }
 
+        public ViewResult List() =>
+            View(_repository.Orders.Where(o => !o.Sended));
+
+
         [HttpGet]
-        public IActionResult Checkout()
+        public IActionResult Checkout() => View(new Order());
+
+        [HttpPost]
+        public IActionResult MarkSended(int orderId)
         {
-            return View(new Order());
+            Order order = _repository.Orders
+                .FirstOrDefault(o => o.OrderID == orderId);
+
+            if (order != null)
+            {
+                order.Sended = true;
+                _repository.SaveOrder(order);
+            }
+
+            return RedirectToAction(nameof(List));
+
         }
 
         [HttpPost]
@@ -30,7 +47,7 @@ namespace SongsProject.Controllers
             //any validation problems are passed to the action method through the ModelState property
             if (ModelState.IsValid)
             {
-                order.Lines =  _cart.Lines.ToArray();
+                order.Lines = _cart.Lines.ToArray();
                 _repository.SaveOrder(order);
                 return RedirectToAction(nameof(Completed), order);
             }
@@ -46,7 +63,7 @@ namespace SongsProject.Controllers
             {
                 _cart.Clear();
                 return View(order);
-            }     
+            }
             return RedirectToAction("AccessDenied", "Order");
         }
 

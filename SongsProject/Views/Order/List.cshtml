@@ -20,7 +20,7 @@
                     <form asp-action="MarkSended" method="post">
                         <input type="hidden" name="orderId" value="@o.OrderID" />
                         <button type="submit" class="btn btn-sm btn-danger">
-                            Will send to mail @o.Mail
+                            Send
                         </button>
                     </form>
                 </td>
@@ -30,7 +30,6 @@
                 <tr>
                     <td colspan="2"></td>
                     <td>@line.Song.Name</td>
-                    <td>@line.Quantity</td>
                     <td></td>
                 </tr>
             }
