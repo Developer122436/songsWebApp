@@ -5,4 +5,6 @@ obj
 publish
 settings.json
 appsettings.json
+appsettings.production.json
 .vs
+.vscode
