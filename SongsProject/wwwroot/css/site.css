@@ -22,10 +22,70 @@
 #floatRight {
     float: right;
 }
+aplayerClass{
+    width: 100%
+}
+.description {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0;
+    
+}
 
 #borderSongSummary {
     border-style: solid;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    padding: 10px;
 }
+
+.inputNameSongSearch {
+    margin-bottom: 20px;
+    margin-left: 2px;
+    width: 100%;
+}
+
+.buttonNameSongSearch {
+    margin-left: 2px;
+}
+
+.navBar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.navBarli {
+    float: left;
+}
+
+.navBarli a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px; 
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+.navBarli a:hover {
+    background-color: #111;
+}
+
+.pricelabel {
+    margin-right: 10px;
+}
+.ratelabel {
+    margin-right: 10px;
+}
+
+.bg-fadedx{
+    margin:10px 0 10px;
+}
+
 
 #audioStyleIndex {
     width: 100px;
@@ -42,7 +102,11 @@
 
 .hrSongSummary {
     border: 1px solid;
-    margin: 8px 0;
+    border-style: solid;
+}
+
+.hrSearchViewComponent {
+    border: 1px solid;
     border-style: solid;
 }
 
@@ -71,17 +135,26 @@
     margin: 10px 0 0 0;
 }
 
-.marginLogOut {
-    margin-right: 18px;
-    margin-left: 2px;
-}
-
 .marginButtonsNavBarAdmin {
     margin: 0 2px;
 }
 
+.logOutButton {
+    margin-top: 4px;
+    margin-left: 8px;
+    margin-bottom: 4px;
+}
+
+.insideLogOutButton{
+    padding-right: 8px;
+}
+
+.formLogOutButton {
+    margin-right: -14px;
+}
+
 .autoWidth {
-    width: auto;
+   width: auto;
 }
 
 .displayNone {
@@ -98,12 +171,51 @@
 .controlSongSummary {
     width: 100%;
 }
+.floatRightprice{
+    float:right;
+}
+.pricelabel{
+    float:right;
+}
 
-audio {
+
+#aPlayer > audio {
+    width: 100%;
     filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
 }
+/* Chrome 29+ */
+@media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+    /* HIDE DOWNLOAD AUDIO BUTTON */
+    #aPlayer {
+        overflow: hidden;
+        width: 100%;
+    }
+
+    #aPlayer > audio {
+        width: 100%;
+    }
+}
+
+/* Chrome 22-28 */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+    #aPlayer {
+        overflow: hidden;
+        width: 100%;
+    }
+
+    #aPlayer > audio {
+        width: 100%;
+    }
+}
+
 
 .input-validation-error {
     border-color: red;
     background-color: #fee;
+}
+
+
+@media only screen and (max-width: 600px) {
+
 }

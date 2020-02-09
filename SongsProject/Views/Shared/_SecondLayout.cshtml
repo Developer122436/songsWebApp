@@ -41,22 +41,27 @@
         </script>
     </environment>
 </head>
-<body class="m-1 p-1">
-    <div class="bg-info p-2 row">
+<body>
+    <div class="bg-dark p-3 row text-white">
         <div class="col">
-            <h4>@ViewBag.Title</h4>
+            <h2>@ViewBag.Title</h2>
         </div>
     </div>
-    @if (TempData["message"] != null)
-    {
-        <div class="alert alert-success">@TempData["message"]</div>
-    }
-    <div>
-        @RenderBody()
+    <div class="m-3">
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+        <div>
+            @RenderBody()
+        </div>
+        @if (IsSectionDefined("Scripts"))
+        {
+            @RenderSection("Scripts", required: true)
+        }
     </div>
-    @if (IsSectionDefined("Scripts"))
-    {
-        @RenderSection("Scripts", required: true)
-    }
+    <footer>
+        <p><center><span>&copy; 2019 - Songs Store</span></center></p>
+    </footer>
 </body>
 </html>

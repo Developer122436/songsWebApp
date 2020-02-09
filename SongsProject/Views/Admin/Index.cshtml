@@ -2,7 +2,7 @@
 @model IEnumerable<Song>
 
 @{
-    ViewBag.Title = "SongsProject - Admin Page";
+    ViewBag.Title = "Admin Page";
     Layout = "_SecondLayout";
 }
 
@@ -55,6 +55,7 @@
 
 <div>
     <a asp-action="Create" class="btn btn-primary">Add Song</a>
-    <a asp-action="ExportToExcel" class="btn btn-primary">Export</a>
+    <a asp-action="ExportToExcelSongs" class="btn btn-primary">Export Songs</a>
+    <a asp-action="ExportToExcelOrders" class="btn btn-primary">Export Orders</a>
     <a asp-action="Cancel" class="btn btn-danger">Cancel</a>
 </div>

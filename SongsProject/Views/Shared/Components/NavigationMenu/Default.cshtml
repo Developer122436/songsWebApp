@@ -1,20 +1,24 @@
 ﻿@model IEnumerable<string>
 
-<a class="btn btn-block btn-dark"
+<center>
+    <h3><span>Song Country:</span></h3>
+</center>
+
+<a class="btn btn-block btn-secondary"
    asp-action="ListCountry"
    asp-controller="Home"
    asp-route-country="">
-    Home
+    Home Page
 </a>
 
 @foreach (string Country in Model)
 {
     <a class="btn btn-block
-    @(Country == ViewBag.SelectedCountry ? "btn-primary": "btn-secondary")"
+    @(Country == ViewBag.SelectedCountry ? "btn-dark": "btn-secondary")"
        asp-action="ListCountry"
        asp-controller="Home"
        asp-route-country="@Country"
        asp-route-songPage="1">
-        @Country
+        Search @Country
     </a>
 }

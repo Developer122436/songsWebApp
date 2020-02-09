@@ -1,21 +1,22 @@
 ﻿@model Song
 
 
-<div class="card-outline-primary borderSongSummary m-1" id="borderSongSummary" >
+<div class="card-outline-primary borderSongSummary m-1" id="borderSongSummary">
 
     <img id="imageStandart" class="card-img-top" src="@Url.Content(Model.ImagePath)" alt="Single Image" asp-append-version="true" />
 
     <hr class="hrSongSummary" />
-
-    <div class="audioStyleSongSummary p-1">
-        <audio controls class="controlSongSummary">
-            <source src="@Url.Content(Model.AudioPath)" type="audio/mp3" />
-        </audio>
+    <div class="aplayerClass">
+        <div id="aPlayer">
+            <audio controls>
+                <source src="@Url.Content(Model.AudioPath)" type="audio/mp3" />
+            </audio>
+        </div>
     </div>
 
     <hr class="hrSongSummary" />
 
-    <center class="p-1" ><h3>@Model.MusicStyle Music</h3></center>
+    <center class="p-1"><h3>@Model.MusicStyle Music</h3></center>
 
     <hr class="hrSongSummary" />
 
@@ -28,38 +29,40 @@
 
     @*Method is post - because GET is only if request is not cause change on database*@
     <form id="@Model.Id" asp-action="AddToCart"
-          asp-controller="Cart" method="post" class="p-1" >
+          asp-controller="Cart" method="post" class="p-1">
         <input type="hidden" asp-for="Id" />
         <input type="hidden" name="returnUrl"
                value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-        <h4>
+
+        <div class="description">
             <span class="bg-faded">
-                Charts: @Model.Description
+                Description: @Model.Description
                 <button type="submit"
                         class="btn btn-success btn-sm pull-right" id="floatRight">
                     Add To Cart
                 </button>
-                <span class="badge badge-pill badge-primary marginPriceRatingLabel" id="floatRight">
+                <span class="pricelabel" id="floatRightprice">
                     Price:
                     <small>@Model.Price.ToString("c")</small>
                 </span>
             </span>
-        </h4>
+        </div>
+
     </form>
 
     <hr class="hrSongSummary" />
 
     <form id="@Model.Id" asp-action="AddRating"
-          asp-controller="Home" method="post" class="p-1" >
+          asp-controller="Home" method="post" class="p-1">
         <input type="hidden" asp-for="Id" />
         <h4 class="marginLastRowSongSummary">
-            <span class="bg-faded">
+            <span class="bg-fadedx">
                 Country song: @Model.Country
                 <button type="submit"
                         class="btn btn-success btn-sm pull-right" id="floatRight">
                     Rate
                 </button>
-                <span class="badge badge-pill badge-primary marginPriceRatingLabel" id="floatRight">
+                <span class="ratelabel" id="floatRight">
                     Rating:
                     <small>@Model.Rating</small>
                 </span>

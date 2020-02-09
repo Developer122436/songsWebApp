@@ -17,18 +17,20 @@ namespace SongsProject.Controllers
     [Authorize(Policy = "AdminRolePolicy")]
     public class AdminController : Controller
     {
-        private readonly ISongRepository repository;
+        private readonly ISongRepository _repositorySongs;
+        private readonly IOrderRepository _repositoryOrders;
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public AdminController(IHostingEnvironment hostingEnvironment, ISongRepository repo, ApplicationDbContext context)
+        public AdminController(IHostingEnvironment hostingEnvironment, ISongRepository repoSongs, IOrderRepository repoOrders, ApplicationDbContext context)
         {
             _hostingEnvironment = hostingEnvironment;
-            repository = repo;
+            _repositorySongs = repoSongs;
+            _repositoryOrders = repoOrders;
             _context = context;
         }
 
-        public async Task<IActionResult> Index() => View(await repository.Songs.ToListAsync());
+        public async Task<IActionResult> Index() => View(await _repositorySongs.Songs.ToListAsync());
 
         // The method here on default is synchronous - this is the only request is sended.(All other requests are blocked).
         // For one user is ok, for more scalability is bad.(More users will be blocked).
@@ -41,7 +43,7 @@ namespace SongsProject.Controllers
             if (ModelState.IsValid)
             {
                 // We need to tell the method to wait for this response(We use await to do it).
-                Song song = await repository.Songs
+                Song song = await _repositorySongs.Songs
                 .FirstOrDefaultAsync(p => p.Id == id);
                 SongEditViewModel songEditViewModel = new SongEditViewModel
                 {
@@ -71,7 +73,7 @@ namespace SongsProject.Controllers
                 string filePhotoName = model.ExistingPhotoPath;
                 string fileAudioName = model.ExistingAudioPath;
 
-                Song song = repository.Songs
+                Song song = _repositorySongs.Songs
                 .FirstOrDefault(p => p.Id == model.Id);
                 song.Name = model.Name;
                 song.Artist = model.Artist;
@@ -123,7 +125,7 @@ namespace SongsProject.Controllers
                     song.AudioPath = stringAudioPath + fileAudioName;
                 }
 
-                repository.SaveSong(song);
+                _repositorySongs.SaveSong(song);
                 TempData["message"] = $"{song.Name} has been edited";
                 return RedirectToAction("Index");
 
@@ -199,7 +201,7 @@ namespace SongsProject.Controllers
                     AudioPath = stringAudioPath + fileAudioName
                 };
 
-                repository.SaveSong(newSong);
+                _repositorySongs.SaveSong(newSong);
 
                 TempData["message"] = $"{newSong.Name} has been created";
                 return RedirectToAction("Index", new { id = newSong.Id });
@@ -214,7 +216,7 @@ namespace SongsProject.Controllers
         [HttpPost]
         public IActionResult Delete(int Id)
         {
-            Song deletedSong = repository.DeleteSong(Id);
+            Song deletedSong = _repositorySongs.DeleteSong(Id);
             if (deletedSong != null)
             {
                 TempData["message"] = $"{deletedSong.Name} was deleted";
@@ -222,36 +224,37 @@ namespace SongsProject.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        [Route("ExportCustomer")]
-        public async Task<IActionResult> ExportToExcel()
+        [HttpGet("ExportToExcelSongs")]
+        public async Task<IActionResult> ExportToExcelSongs()
         {
             byte[] fileContents;
             int rowStart = 2;
-            List<SongsProject.Models.Song> songs = await repository.Songs.ToListAsync();
+            List<SongsProject.Models.Song> songs = await _repositorySongs.Songs.ToListAsync();
             using (var package = new ExcelPackage())
             {
-                var worksheet = package.Workbook.Worksheets.Add("Sheet1");
+                var worksheet = package.Workbook.Worksheets.Add("Songs");
 
-                worksheet.Cells["A1"].Value = "Name";
-                worksheet.Cells["B1"].Value = "Artist";
-                worksheet.Cells["C1"].Value = "Description";
-                worksheet.Cells["D1"].Value = "Price";
-                worksheet.Cells["E1"].Value = "Country";
-                worksheet.Cells["F1"].Value = "ImagePath";
-                worksheet.Cells["G1"].Value = "MusicStyle";
-                worksheet.Cells["H1"].Value = "Rating";
+                worksheet.Cells["A1"].Value = "SongID";
+                worksheet.Cells["B1"].Value = "Name";
+                worksheet.Cells["C1"].Value = "Artist";
+                worksheet.Cells["D1"].Value = "Description";
+                worksheet.Cells["E1"].Value = "Price";
+                worksheet.Cells["F1"].Value = "Country";
+                worksheet.Cells["G1"].Value = "ImagePath";
+                worksheet.Cells["H1"].Value = "MusicStyle";
+                worksheet.Cells["I1"].Value = "Rating";
 
                 foreach (var item in songs)
                 {
-                    worksheet.Cells[string.Format("A{0}", rowStart)].Value = item.Name;
-                    worksheet.Cells[string.Format("B{0}", rowStart)].Value = item.Artist;
-                    worksheet.Cells[string.Format("C{0}", rowStart)].Value = item.Description;
-                    worksheet.Cells[string.Format("D{0}", rowStart)].Value = item.Price;
-                    worksheet.Cells[string.Format("E{0}", rowStart)].Value = item.Country;
-                    worksheet.Cells[string.Format("F{0}", rowStart)].Value = item.ImagePath;
-                    worksheet.Cells[string.Format("G{0}", rowStart)].Value = item.MusicStyle;
-                    worksheet.Cells[string.Format("H{0}", rowStart)].Value = item.Rating;
+                    worksheet.Cells[string.Format("A{0}", rowStart)].Value = item.Id;
+                    worksheet.Cells[string.Format("B{0}", rowStart)].Value = item.Name;
+                    worksheet.Cells[string.Format("C{0}", rowStart)].Value = item.Artist;
+                    worksheet.Cells[string.Format("D{0}", rowStart)].Value = item.Description;
+                    worksheet.Cells[string.Format("E{0}", rowStart)].Value = item.Price;
+                    worksheet.Cells[string.Format("F{0}", rowStart)].Value = item.Country;
+                    worksheet.Cells[string.Format("G{0}", rowStart)].Value = item.ImagePath;
+                    worksheet.Cells[string.Format("H{0}", rowStart)].Value = item.MusicStyle;
+                    worksheet.Cells[string.Format("I{0}", rowStart)].Value = item.Rating;
                     rowStart++;
                 }
 
@@ -267,6 +270,56 @@ namespace SongsProject.Controllers
                 fileContents: fileContents,
                 contentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 fileDownloadName: "Songs.xlxs"
+            );
+        }
+
+        [HttpGet("ExportToExcelOrders")]
+        public async Task<IActionResult> ExportToExcelOrders()
+        {
+            byte[] fileContents;
+            int rowStart = 2;
+            List<SongsProject.Models.Order> orders = await _repositoryOrders.Orders.ToListAsync();
+            //List<SongsProject.Models.Cart> cart = await _repositoryOrders.Orders.ToListAsync();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Orders");
+
+                worksheet.Cells["A1"].Value = "OrderID";
+                worksheet.Cells["B1"].Value = "Name";
+                worksheet.Cells["C1"].Value = "Address";
+                worksheet.Cells["D1"].Value = "State";
+                worksheet.Cells["E1"].Value = "City";
+                worksheet.Cells["F1"].Value = "Country";
+                worksheet.Cells["G1"].Value = "Mail";
+                worksheet.Cells["H1"].Value = "Is sended";
+
+                foreach (var item in orders)
+                {
+                    worksheet.Cells[string.Format("A{0}", rowStart)].Value = item.OrderID;
+                    worksheet.Cells[string.Format("B{0}", rowStart)].Value = item.Name;
+                    worksheet.Cells[string.Format("C{0}", rowStart)].Value = item.Address;
+                    worksheet.Cells[string.Format("D{0}", rowStart)].Value = item.State;
+                    worksheet.Cells[string.Format("E{0}", rowStart)].Value = item.City;
+                    worksheet.Cells[string.Format("F{0}", rowStart)].Value = item.Country;
+                    worksheet.Cells[string.Format("G{0}", rowStart)].Value = item.Mail;
+                    worksheet.Cells[string.Format("H{0}", rowStart)].Value = item.Sended;
+
+                    rowStart++;
+                }
+
+                fileContents = package.GetAsByteArray();
+            }
+
+            if (fileContents == null || fileContents.Length == 0)
+            {
+                return NotFound();
+            }
+
+            return File(
+                fileContents: fileContents,
+                contentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                fileDownloadName: "Orders.xlxs"
             );
         }
 

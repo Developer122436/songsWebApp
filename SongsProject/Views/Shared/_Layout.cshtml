@@ -45,11 +45,11 @@
     </environment>
 </head>
 <body>
-    <div class="p-1 bg-dark" role="navigation">
-        <div class="row">
-            <li><a class="col navbar-brand text-white" asp-controller="Home" asp-action="ListCountry">Home Page</a></li>
-            <li>
-                <div class="col navbar-brand text-white">
+    <div role="navigation">
+        <ul class="navBar">
+            <li class="navBarli"><a class="navbar-brand text-white" asp-route-country="" asp-controller="Home" asp-action="ListCountry">Home Page</a></li>
+            <li class="navBarli">
+                <div class="navbar-brand text-white">
                     @await Component.InvokeAsync("CartSummary")
                 </div>
             </li>
@@ -57,16 +57,23 @@
             {
                 @if (User.IsInRole("Admin"))
                 {
-                    <a asp-controller="Admin" asp-action="Index" class="col navbar-brand text-white">Go to Admin Menu</a>
-                    <a class="btn btn btn-success marginButtonsNavBarAdmin" asp-controller="Administration" asp-action="ListUsers">Users</a>
-                    <a class="btn btn btn-success marginButtonsNavBarAdmin" asp-controller="Administration" asp-action="ListRoles">Roles</a>
+                    <li class="navBarli">
+                        <a asp-controller="Admin" asp-action="Index" class="navbar-brand text-white">Go to Admin Menu</a>
+                    </li>
+                    <li class="navBarli">
+                        <a class="navbar-brand text-white marginButtonsNavBarAdmin" asp-controller="Administration" asp-action="ListUsers">Users</a>
+                    </li>
+                    <li class="navBarli">
+                        <a class="navbar-brand text-white marginButtonsNavBarAdmin" asp-controller="Administration" asp-action="ListRoles">Roles</a>
+                    </li>
                 }
-                <a class="btn btn btn-success marginButtonsNavBarAdmin" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
-
-                <li class="btn btn-light marginLogOut">
-                    <form method="post" asp-controller="Account" asp-action="Logout">
-                        <button type="submit" id="autoWidth"
-                                class="nav-link btn btn-link py-0">
+                <li class="navBarli">
+                    <a class="navbar-brand text-white marginButtonsNavBarAdmin" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+                </li>
+                <li class="btn btn-light logOutButton">
+                    <form method="post" class="formLogOutButton" asp-controller="Account" asp-action="Logout">
+                        <button type="submit"
+                                class="btn btn-link navbar-brand">
                             Logout @User.Identity.Name
                         </button>
                     </form>
@@ -74,10 +81,10 @@
             }
             else
             {
-                <li><a class="col navbar-brand text-white" asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
-                <a class="col navbar-brand text-white" asp-controller="Account" asp-action="Register">Register User</a>
+                <li class="navBarli"><a class="navbar-brand text-white" asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
+                <li class="navBarli"><a class="navbar-brand text-white" asp-controller="Account" asp-action="Register">Register User</a></li>
             }
-        </div>
+        </ul>
     </div>
     <div class="container body-content">
         <div class="row">
@@ -87,7 +94,7 @@
             @*col-md-offset-3 - move 3 columns to the right*@
             <div id="countries" class="col-md-3">
                 @await Component.InvokeAsync("NavigationSearch")
-                <br />
+                <hr class="hrSearchViewComponent" />
                 @await Component.InvokeAsync("NavigationMenu")
             </div>
             @*Here the code from another views will run*@
