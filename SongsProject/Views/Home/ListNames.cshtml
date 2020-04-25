@@ -1,5 +1,9 @@
 ﻿@model SongsListViewModel
 
+@{
+    ViewBag.Title = "List Names";
+}
+
 @foreach (var p in Model.Songs)
 {
     @await Html.PartialAsync("SongSummary", p)

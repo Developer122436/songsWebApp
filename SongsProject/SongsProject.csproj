@@ -3,6 +3,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AspNetCoreHostingModelV2>InProcess</AspNetCoreHostingModelV2>
     <UserSecretsId>6a53ce7b-25f3-4a93-a359-491d7b1feef6</UserSecretsId>
+    <ApplicationIcon>wwwroot\content\myIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <WarningLevel>4</WarningLevel>

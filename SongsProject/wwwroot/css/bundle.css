@@ -1,3 +1,24 @@
+/*-- Layout CSS --*/
+.hrSearchViewComponent {
+    border: 1px solid;
+    border-style: solid;
+}
+
+.marginButtonsNavBarAdmin {
+    margin: 0 2px;
+}
+
+.logOutButton {
+    margin-top: 4px;
+    margin-left: 8px;
+    margin-bottom: 4px;
+}
+
+.formLogOutButton {
+    margin-right: -14px;
+}
+
+/*-- Images CSS --*/
 #imageThumbnail {
     height: 200px;
     width: 200px;
@@ -15,23 +36,7 @@
     height: 100px;
 }
 
-#autoWidth {
-    width: auto;
-}
-
-#floatRight {
-    float: right;
-}
-aplayerClass{
-    width: 100%
-}
-.description {
-    font-size: 1em;
-    font-weight: bold;
-    margin: 0;
-    
-}
-
+/*-- Song Summary CSS --*/
 #borderSongSummary {
     border-style: solid;
     -moz-border-radius: 20px;
@@ -40,6 +45,35 @@ aplayerClass{
     padding: 10px;
 }
 
+.pricelabel {
+    float: right;
+    margin-right: 10px;
+}
+
+.ratelabel {
+    margin-right: 10px;
+}
+
+.spanCountryRating {
+    margin: 10px 0 10px;
+}
+
+.hrSongSummary {
+    border: 1px solid;
+    border-style: solid;
+}
+
+.marginLastRowSongSummary {
+    margin: 0 0 12px 0;
+}
+
+.descriptionSongSummary {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0;
+}
+
+/*-- Navigation Search CSS --*/
 .inputNameSongSearch {
     margin-bottom: 20px;
     margin-left: 2px;
@@ -50,6 +84,37 @@ aplayerClass{
     margin-left: 2px;
 }
 
+/*-- Admin Index CSS --*/
+#audioStyleIndex {
+    width: 100px;
+    padding-top: 15px;
+}
+
+/*-- Cart Index CSS --*/
+.whiteTable {
+    background-color: white;
+}
+
+.marginButtonRemove {
+    text-align: center
+}
+
+.headlineCart {
+    text-decoration: underline;
+    margin: 10px 0 0 0;
+}
+
+/*-- Audio Player CSS --*/
+#aPlayer > audio {
+    width: 100%;
+    filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
+}
+
+.aplayerClass {
+    width: 100%
+}
+
+/*-- Nav Bar CSS --*/
 .navBar {
     list-style-type: none;
     margin: 0;
@@ -70,152 +135,18 @@ aplayerClass{
     text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
 .navBarli a:hover {
     background-color: #111;
 }
 
-.pricelabel {
-    margin-right: 10px;
-}
-.ratelabel {
-    margin-right: 10px;
-}
-
-.bg-fadedx{
-    margin:10px 0 10px;
-}
-
-
-#audioStyleIndex {
-    width: 100px;
-    padding-top: 15px;
-}
-
-.noneDisplay {
-    display: none;
-}
-
-.marginPriceRatingLabel {
-    margin: 3px 3px 0 0;
-}
-
-.hrSongSummary {
-    border: 1px solid;
-    border-style: solid;
-}
-
-.hrSearchViewComponent {
-    border: 1px solid;
-    border-style: solid;
-}
-
-.centerDetailsSongSummary {
-    text-align: center;
-}
-
-.whiteText {
-    color: #f8f9fa;
-}
-
-.marginLastRowSongSummary {
-    margin: 0 0 12px 0;
-}
-
-.whiteTable {
-    background-color: white;
-}
-
-.marginButtonRemove {
-    text-align: center
-}
-
-.headlineCart {
-    text-decoration: underline;
-    margin: 10px 0 0 0;
-}
-
-.marginButtonsNavBarAdmin {
-    margin: 0 2px;
-}
-
-.logOutButton {
-    margin-top: 4px;
-    margin-left: 8px;
-    margin-bottom: 4px;
-}
-
-.insideLogOutButton{
-    padding-right: 8px;
-}
-
-.formLogOutButton {
-    margin-right: -14px;
+#floatRight {
+    float: right;
 }
 
 .autoWidth {
-   width: auto;
+    width: auto;
 }
 
 .displayNone {
     display: none;
-}
-
-.audioStyleSongSummary {
-    width: 500px;
-    padding-top: 15px;
-    margin: auto;
-    position: relative;
-}
-
-.controlSongSummary {
-    width: 100%;
-}
-.floatRightprice{
-    float:right;
-}
-.pricelabel{
-    float:right;
-}
-
-
-#aPlayer > audio {
-    width: 100%;
-    filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
-}
-/* Chrome 29+ */
-@media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
-    /* HIDE DOWNLOAD AUDIO BUTTON */
-    #aPlayer {
-        overflow: hidden;
-        width: 100%;
-    }
-
-    #aPlayer > audio {
-        width: 100%;
-    }
-}
-
-/* Chrome 22-28 */
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-
-    #aPlayer {
-        overflow: hidden;
-        width: 100%;
-    }
-
-    #aPlayer > audio {
-        width: 100%;
-    }
-}
-
-
-.input-validation-error {
-    border-color: red;
-    background-color: #fee;
-}
-
-
-@media only screen and (max-width: 600px) {
-
 }
