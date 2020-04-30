@@ -12,9 +12,9 @@ Create Song Page:
 ![CreateSong](https://user-images.githubusercontent.com/55385057/80740538-e545e980-8b20-11ea-8421-ff02792340c7.JPG)
 
 Edit Song Page:
-![EditSong](https://user-images.githubusercontent.com/55385057/80740541-e5de8000-8b20-11ea-91b6-8888c0621797.JPG)
+![image](https://user-images.githubusercontent.com/55385057/80740783-48378080-8b21-11ea-97a9-d645064bc319.png)
 
 All Users Page:
-![AllUsers](https://user-images.githubusercontent.com/55385057/80740537-e4ad5300-8b20-11ea-9b1b-4cfadee521de.JPG)
+![EditSong](https://user-images.githubusercontent.com/55385057/80740541-e5de8000-8b20-11ea-91b6-8888c0621797.JPG)
 
 
