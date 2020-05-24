@@ -8,7 +8,7 @@ Technologies:
 
 .Net Core platform, VS, HTML5, CSS3, Bootstrap, MSSQL, MVC & C#.
 
-To view the system , access the web app with the following user email and password:
+To view the system, access the web app with the following user email and password:
 
 * User: dimaspektor12@gmail.com
 * Password: Pa$$w0rd1234
