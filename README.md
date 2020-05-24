@@ -5,6 +5,7 @@
 Developed independently web app from scratch, Worked on front-end and back-end in this project.
 
 Technologies:
+
 .Net Core platform, VS, HTML5, CSS3, Bootstrap, MSSQL, MVC & C#.
 
 To view the system , access the web app with the following user email and password:
