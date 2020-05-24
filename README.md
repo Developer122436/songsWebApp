@@ -5,7 +5,9 @@
 Developed independently web app from scratch, Worked on front-end and back-end in this project, Developed using .Net Core platform, VS, HTML5, CSS3, Bootstrap, MSSQL, MVC & C#.
 
 To view the system , access the website with the following User email and password:
-User: dimaspektor12@gmail.com, Password: Pa$$w0rd1234
+
+* User: dimaspektor12@gmail.com
+* Password: Pa$$w0rd1234
 
 Admin Page:
 ![Admin](https://user-images.githubusercontent.com/55385057/80740902-74530180-8b21-11ea-85ac-0e3936615d96.JPG)
