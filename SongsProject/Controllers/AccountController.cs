@@ -8,7 +8,6 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SongsProject.Controllers
@@ -28,6 +27,7 @@ namespace SongsProject.Controllers
             _logger = logger;
         }
 
+        // Check if email is on use
         [AcceptVerbs("Get", "Post")]
         [AllowAnonymous]
         public async Task<IActionResult> IsEmailInUse(string email)
@@ -44,6 +44,7 @@ namespace SongsProject.Controllers
             }
         }
 
+        // HttpGet UI - UI of register
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register()
@@ -51,6 +52,7 @@ namespace SongsProject.Controllers
             return View();
         }
 
+        // HttpPost UI - User register his details and it was insert to database
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -78,21 +80,12 @@ namespace SongsProject.Controllers
                         return RedirectToAction("ListUsers", "Administration");
                     }
 
-                    SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
-                    client.EnableSsl = true;
-                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential("dimaspektor12@gmail.com", "rtnwzldmmcqoennv");
-                    MailMessage message = new MailMessage();
-                    message.To.Add(model.Email);
-                    message.From = new MailAddress("dimaspektor12@gmail.com");
-                    message.Subject = "Link to Confirm Email";
-                    message.Body = confirmationLink;
-                    client.Send(message);
+                    SendingConfirmationEmail(model.Email, confirmationLink);
 
                     ViewBag.ErrorTitle = "Registration successful";
                     ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
                             "email, by clicking on the confirmation link we have emailed you";
+
                     return View("Error");
 
                 }
@@ -106,6 +99,7 @@ namespace SongsProject.Controllers
             return View(model);
         }
 
+        // HttpGet UI - UI of confirm email, will show after user will click the confirmation link
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
@@ -132,6 +126,7 @@ namespace SongsProject.Controllers
             return View("Error");
         }
 
+        // Method for button that will log user out of the web app
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
@@ -139,6 +134,7 @@ namespace SongsProject.Controllers
             return RedirectToAction("ListCountry", "Home");
         }
 
+        // HttpGet UI - UI of log in 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl)
@@ -153,6 +149,7 @@ namespace SongsProject.Controllers
             return View(model);
         }
 
+        // HttpPost UI - User login his details and got access to the site by his credentials
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
@@ -197,107 +194,7 @@ namespace SongsProject.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        public IActionResult ExternalLogin(string provider, string returnUrl)
-        {
-            var redirectUrl = Url.Action("ExternalLoginCallback", "Account",
-                                new { ReturnUrl = returnUrl });
-            var properties = _signInManager
-                .ConfigureExternalAuthenticationProperties(provider, redirectUrl);
-            return new ChallengeResult(provider, properties);
-        }
-
-        [AllowAnonymous]
-        public async Task<IActionResult>
-    ExternalLoginCallback(string returnUrl = null, string remoteError = null)
-        {
-            returnUrl = returnUrl ?? Url.Content("~/");
-
-            LoginViewModel loginViewModel = new LoginViewModel
-            {
-                ReturnUrl = returnUrl,
-                ExternalLogins =
-                (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
-            };
-
-            if (remoteError != null)
-            {
-                ModelState.AddModelError(string.Empty,
-                    $"Error from external provider: {remoteError}");
-
-                return View("Login", loginViewModel);
-            }
-
-            var info = await _signInManager.GetExternalLoginInfoAsync();
-            if (info == null)
-            {
-                ModelState.AddModelError(string.Empty,
-                    "Error loading external login information.");
-
-                return View("Login", loginViewModel);
-            }
-
-            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-            IdentityUser user = null;
-
-            if (email != null)
-            {
-                user = await _userManager.FindByEmailAsync(email);
-
-                if (user != null && !user.EmailConfirmed)
-                {
-                    ModelState.AddModelError(string.Empty, "Email not confirmed yet");
-                    return View("Login", loginViewModel);
-                }
-            }
-
-            var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider,
-                info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
-
-            if (signInResult.Succeeded)
-            {
-                return LocalRedirect(returnUrl);
-            }
-            else
-            {
-                if (email != null)
-                {
-                    if (user == null)
-                    {
-                        user = new IdentityUser
-                        {
-                            UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
-                            Email = info.Principal.FindFirstValue(ClaimTypes.Email)
-                        };
-
-                        await _userManager.CreateAsync(user);
-                        var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-
-                        var confirmationLink = Url.Action("ConfirmEmail", "Account",
-                                        new { userId = user.Id, token = token }, Request.Scheme);
-
-                        _logger.Log(LogLevel.Warning, confirmationLink);
-
-                        ViewBag.ErrorTitle = "Registration successful";
-                        ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
-                            "email, by clicking on the confirmation link we will emailed you";
-                        return View("Error");
-                    }
-
-                    await _userManager.AddLoginAsync(user, info);
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-
-                    return LocalRedirect(returnUrl);
-                }
-
-                ViewBag.ErrorTitle = $"Email claim not received from: {info.LoginProvider}";
-                ViewBag.ErrorMessage = "Please contact support on dimaspektor12@gmail.com";
-
-                return View("Error");
-            }
-        }
-
+        // Method for button that will return user back to home page
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Cancel()
@@ -305,6 +202,7 @@ namespace SongsProject.Controllers
             return RedirectToAction("ListCountry", "Home");
         }
 
+        // HttpGet UI - UI of access denied, will show if user don't have credentials to access the UI
         [HttpGet]
         [AllowAnonymous]
         public IActionResult AccessDenied()
@@ -312,6 +210,7 @@ namespace SongsProject.Controllers
             return View();
         }
 
+        // HttpGet UI - UI for forgot password, will show if user forgot his password
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ForgotPassword()
@@ -319,6 +218,7 @@ namespace SongsProject.Controllers
             return View();
         }
 
+        // HttpPost UI - User change his password after he forgot it and the password was inserted to the database
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
@@ -333,17 +233,8 @@ namespace SongsProject.Controllers
                     var passwordResetLink = Url.Action("ResetPassword", "Account",
                             new { email = model.Email, token = token }, Request.Scheme);
 
-                    SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
-                    client.EnableSsl = true;
-                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential("dimaspektor12@gmail.com", "rtnwzldmmcqoennv");
-                    MailMessage message = new MailMessage();
-                    message.To.Add(model.Email);
-                    message.From = new MailAddress("dimaspektor12@gmail.com");
-                    message.Subject = "Link to reset password";
-                    message.Body = passwordResetLink;
-                    client.Send(message);
+                    SendingConfirmationEmail(model.Email, passwordResetLink);
+
                     _logger.Log(LogLevel.Warning, passwordResetLink);
 
                     return View("ForgotPasswordConfirmation");
@@ -355,6 +246,7 @@ namespace SongsProject.Controllers
             return View(model);
         }
 
+        // HttpGet UI - UI for reset password of the user, will show if user got lock out
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ResetPassword(string token, string email)
@@ -366,6 +258,7 @@ namespace SongsProject.Controllers
             return View();
         }
 
+        // HttpPost UI - User reset his password after he got lock out
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
@@ -399,6 +292,7 @@ namespace SongsProject.Controllers
             return View(model);
         }
 
+        // HttpGet UI - UI for change password of the user
         [HttpGet]
         public async Task<IActionResult> ChangePassword()
         {
@@ -414,6 +308,7 @@ namespace SongsProject.Controllers
             return View();
         }
 
+        // HttpPost UI - User change his password and the password will insert to database
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -444,45 +339,62 @@ namespace SongsProject.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> AddPassword()
+        //[HttpGet]
+        //public async Task<IActionResult> AddPassword()
+        //{
+        //    var user = await _userManager.GetUserAsync(User);
+
+        //    var userHasPassword = await _userManager.HasPasswordAsync(user);
+
+        //    if (userHasPassword)
+        //    {
+        //        return RedirectToAction("ChangePassword");
+        //    }
+
+        //    return View();
+        //}
+
+        //// HttpPost UI - 
+        //[HttpPost]
+        //public async Task<IActionResult> AddPassword(AddPasswordViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = await _userManager.GetUserAsync(User);
+
+        //        var result = await _userManager.AddPasswordAsync(user, model.NewPassword);
+
+        //        if (!result.Succeeded)
+        //        {
+        //            foreach (var error in result.Errors)
+        //            {
+        //                ModelState.AddModelError(string.Empty, error.Description);
+        //            }
+        //            return View();
+        //        }
+
+        //        await _signInManager.RefreshSignInAsync(user);
+
+        //        return View("AddPasswordConfirmation");
+        //    }
+
+        //    return View(model);
+        //}
+
+        // Sending confirm link to the user email for confirm register or reset password.
+        public void SendingConfirmationEmail(string email, string confirmationLink)
         {
-            var user = await _userManager.GetUserAsync(User);
-
-            var userHasPassword = await _userManager.HasPasswordAsync(user);
-
-            if (userHasPassword)
-            {
-                return RedirectToAction("ChangePassword");
-            }
-
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddPassword(AddPasswordViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.GetUserAsync(User);
-
-                var result = await _userManager.AddPasswordAsync(user, model.NewPassword);
-
-                if (!result.Succeeded)
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                    return View();
-                }
-
-                await _signInManager.RefreshSignInAsync(user);
-
-                return View("AddPasswordConfirmation");
-            }
-
-            return View(model);
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            client.EnableSsl = true;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential("dimaspektor12@gmail.com", "rtnwzldmmcqoennv");
+            MailMessage message = new MailMessage();
+            message.To.Add(email);
+            message.From = new MailAddress("dimaspektor12@gmail.com");
+            message.Subject = "Link to Confirm Email";
+            message.Body = confirmationLink;
+            client.Send(message);
         }
     }
 }
