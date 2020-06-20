@@ -2,9 +2,9 @@
 
 •	https://songswebapp.net
 
-Songs web app is a a CRUD responsive information system that was build independently from scratch through course WEB at my degree, with login and register option (.Net Core MVC native), allows admin users to save/edit/delete songs and regular users to listen and buy songs. The web app contain confirmation email sending using SMTP protocol if the user register to the web app, changing password and forgot password.
+Developed independently web app from scratch, Worked on front-end and back-end in this project.
 
-Technologies (Worked on front-end and back-end in this project):
+Technologies:
 
 .Net Core platform, VS, HTML5, CSS3, Bootstrap, MSSQL, MVC & C#.
 
