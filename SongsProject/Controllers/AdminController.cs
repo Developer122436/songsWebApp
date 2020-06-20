@@ -32,17 +32,12 @@ namespace SongsProject.Controllers
 
         public async Task<IActionResult> Index() => View(await _repositorySongs.Songs.ToListAsync());
 
-        // The method here on default is synchronous - this is the only request is sended.(All other requests are blocked).
-        // For one user is ok, for more scalability is bad.(More users will be blocked).
-        // It will work slower.
-        // To make method asynchronous we will use async Task.
-        // It passes the data to delegate and not blocked other requests - it will keep the thread open.
+        // HttpGet UI - UI for edit song
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             if (ModelState.IsValid)
             {
-                // We need to tell the method to wait for this response(We use await to do it).
                 Song song = await _repositorySongs.Songs
                 .FirstOrDefaultAsync(p => p.Id == id);
                 SongEditViewModel songEditViewModel = new SongEditViewModel
@@ -63,6 +58,7 @@ namespace SongsProject.Controllers
             return View();
         }
 
+        // HttpPost UI - User edit song and the song will inserted to the database
         [HttpPost]
         public IActionResult Edit(SongEditViewModel model)
         {
@@ -90,16 +86,11 @@ namespace SongsProject.Controllers
                     if (fi.Extension == ".JPG" || fi.Extension == ".PNG" || fi.Extension == ".GIF" || fi.Extension == ".jpg" ||
                         fi.Extension == ".png" || fi.Extension == ".gif")
                     {
-                        // The image must be uploaded to the images folder in wwwroot
-                        // To get the path of the wwwroot folder we are using the inject
-                        // HostingEnvironment service provided by ASP.NET Core
                         string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
                         filePhotoName = String.Format("{0:d}",
                               (DateTime.Now.Ticks / 10) % 100000000) + "_" + model.Photo.FileName;
 
                         string filePath = Path.Combine(uploadsFolder, filePhotoName);
-                        // Use CopyTo() method provided by IFormFile interface to
-                        // copy the file to wwwroot/images folder 
                         model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
 
                     }
@@ -135,9 +126,11 @@ namespace SongsProject.Controllers
 
         }
 
+        // HttpGet UI - UI for create song
         [HttpGet]
         public IActionResult Create() => View("Create", new SongsCreateListViewModel());
 
+        // HttpPost UI - User create song and the song will inserted to the database
         [HttpPost]
         public IActionResult Create(SongsCreateListViewModel model)
         {
@@ -154,18 +147,12 @@ namespace SongsProject.Controllers
                     if (fi.Extension == ".JPG" || fi.Extension == ".PNG" || fi.Extension == ".GIF" || fi.Extension == ".jpg" ||
                         fi.Extension == ".png" || fi.Extension == ".gif")
                     {
-                        // The image must be uploaded to the images folder in wwwroot
-                        // To get the path of the wwwroot folder we are using the inject
-                        // HostingEnvironment service provided by ASP.NET Core
                         string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
                         filePhotoName = String.Format("{0:d}",
                               (DateTime.Now.Ticks / 10) % 100000000) + "_" + model.Photo.FileName;
 
                         string filePath = Path.Combine(uploadsFolder, filePhotoName);
-                        // Use CopyTo() method provided by IFormFile interface to
-                        // copy the file to wwwroot/images folder 
                         model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
-
                     }
                 }
 
@@ -175,16 +162,11 @@ namespace SongsProject.Controllers
                     if (fi.Extension == ".MP3" || fi.Extension == ".WAV" || fi.Extension == ".mp3" ||
                         fi.Extension == ".wav")
                     {
-                        // The image must be uploaded to the images folder in wwwroot
-                        // To get the path of the wwwroot folder we are using the inject
-                        // HostingEnvironment service provided by ASP.NET Core
                         string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "audios");
                         fileAudioName = String.Format("{0:d}",
                               (DateTime.Now.Ticks / 10) % 100000000) + "_" + model.Audio.FileName;
 
                         string filePath = Path.Combine(uploadsFolder, fileAudioName);
-                        // Use CopyTo() method provided by IFormFile interface to
-                        // copy the file to wwwroot/images folder 
                         model.Audio.CopyTo(new FileStream(filePath, FileMode.Create));
 
                     }
@@ -213,6 +195,7 @@ namespace SongsProject.Controllers
             }
         }
 
+        // Method for button that will delete song from the database
         [HttpPost]
         public IActionResult Delete(int Id)
         {
@@ -224,6 +207,7 @@ namespace SongsProject.Controllers
             return RedirectToAction("Index");
         }
 
+        // Method for button that will export songs from the database to excel file
         [HttpGet("ExportToExcelSongs")]
         public async Task<IActionResult> ExportToExcelSongs()
         {
@@ -273,6 +257,7 @@ namespace SongsProject.Controllers
             );
         }
 
+        // Method for button that will export orders from the database to excel file
         [HttpGet("ExportToExcelOrders")]
         public async Task<IActionResult> ExportToExcelOrders()
         {
@@ -323,6 +308,7 @@ namespace SongsProject.Controllers
             );
         }
 
+        // Method for button that will return user back to home page
         [HttpGet]
         public IActionResult Cancel()
         {
