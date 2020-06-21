@@ -1,10 +1,10 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace SongsProject.Migrations
 {
-    public partial class AddingIdentity : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,46 @@ namespace SongsProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Sended = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Address = table.Column<string>(maxLength: 50, nullable: false),
+                    City = table.Column<string>(maxLength: 50, nullable: false),
+                    State = table.Column<string>(maxLength: 50, nullable: true),
+                    Mail = table.Column<string>(nullable: false),
+                    Country = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.OrderID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Songs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false),
+                    Artist = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
+                    Country = table.Column<string>(nullable: false),
+                    ImagePath = table.Column<string>(nullable: true),
+                    AudioPath = table.Column<string>(nullable: true),
+                    MusicStyle = table.Column<string>(nullable: false),
+                    Rating = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Songs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -65,7 +105,7 @@ namespace SongsProject.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,7 +126,7 @@ namespace SongsProject.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,7 +146,7 @@ namespace SongsProject.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,13 +164,13 @@ namespace SongsProject.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -150,7 +190,45 @@ namespace SongsProject.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CartLine",
+                columns: table => new
+                {
+                    CartLineID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    SongId = table.Column<int>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
+                    OrderID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartLine", x => x.CartLineID);
+                    table.ForeignKey(
+                        name: "FK_CartLine_Orders_OrderID",
+                        column: x => x.OrderID,
+                        principalTable: "Orders",
+                        principalColumn: "OrderID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CartLine_Songs_SongId",
+                        column: x => x.SongId,
+                        principalTable: "Songs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Songs",
+                columns: new[] { "Id", "Artist", "AudioPath", "Country", "Description", "ImagePath", "MusicStyle", "Name", "Price", "Rating" },
+                values: new object[,]
+                {
+                    { 1, "Neta", " ~/audios/Toy.mp3", "Israel", "#1 Eurovision", "~/images/NoImage.png", "Pop", "Toy", 18m, 0 },
+                    { 2, "Jennifer Lopez", " ~/audios/On The Floor.mp3", "USA", "#1 USA", "~/images/NoImage.png", "Pop", "On the floor", 21m, 0 },
+                    { 3, "Ariana Grande", " ~/audios/7 rings.mp3", "USA", "#1 USA", "~/images/NoImage.png", "Pop", "7 Rings", 22m, 0 },
+                    { 4, "Kobi Marimi", " ~/audios/60971056_Home.mp3", "Israel", "#23 Eurovision", "~/images/NoImage.png", "Pop", "Home", 11m, 0 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -191,6 +269,16 @@ namespace SongsProject.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartLine_OrderID",
+                table: "CartLine",
+                column: "OrderID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartLine_SongId",
+                table: "CartLine",
+                column: "SongId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -211,10 +299,19 @@ namespace SongsProject.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CartLine");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Songs");
         }
     }
 }

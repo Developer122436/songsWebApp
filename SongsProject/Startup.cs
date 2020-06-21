@@ -41,18 +41,6 @@ namespace SongsProject
                     opt => { opt.UseRowNumberForPaging(); }
             ));
 
-            services.AddAuthentication()
-                .AddGoogle(options =>
-            {
-                options.ClientId = "464206860093-3a2gp7tlnkfmqb3q5jct9cfevrhq7fil.apps.googleusercontent.com";
-                options.ClientSecret = "30D9B8VviyssWHTvXMNSJL5a";
-            })
-            .AddFacebook(options =>
-            {
-                options.AppId = "414787619203517";
-                options.AppSecret = "51995b65a494426373ec077ea9052175";
-            });
-
             services.AddHsts(options =>
             {
                 options.Preload = true;

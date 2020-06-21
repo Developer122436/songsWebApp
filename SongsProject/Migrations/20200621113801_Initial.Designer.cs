@@ -10,14 +10,14 @@ using SongsProject.Models;
 namespace SongsProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191009103710_Update")]
-    partial class Update
+    [Migration("20200621113801_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -247,6 +247,8 @@ namespace SongsProject.Migrations
                     b.Property<string>("Artist")
                         .IsRequired();
 
+                    b.Property<string>("AudioPath");
+
                     b.Property<string>("Country")
                         .IsRequired();
 
@@ -270,10 +272,10 @@ namespace SongsProject.Migrations
                     b.ToTable("Songs");
 
                     b.HasData(
-                        new { Id = 1, Artist = "Neta", Country = "Israel", Description = "#1 Eurovision", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "Toy", Price = 18m, Rating = 0 },
-                        new { Id = 2, Artist = "Jennifer Lopez", Country = "USA", Description = "#1 USA", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "On the floor", Price = 21m, Rating = 0 },
-                        new { Id = 3, Artist = "Ariana Grande", Country = "USA", Description = "#1 USA", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "7 Rings", Price = 22m, Rating = 0 },
-                        new { Id = 4, Artist = "Kobi Marimi", Country = "Israel", Description = "#23 Eurovision", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "Home", Price = 11m, Rating = 0 }
+                        new { Id = 1, Artist = "Neta", AudioPath = " ~/audios/Toy.mp3", Country = "Israel", Description = "#1 Eurovision", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "Toy", Price = 18m, Rating = 0 },
+                        new { Id = 2, Artist = "Jennifer Lopez", AudioPath = " ~/audios/On The Floor.mp3", Country = "USA", Description = "#1 USA", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "On the floor", Price = 21m, Rating = 0 },
+                        new { Id = 3, Artist = "Ariana Grande", AudioPath = " ~/audios/7 rings.mp3", Country = "USA", Description = "#1 USA", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "7 Rings", Price = 22m, Rating = 0 },
+                        new { Id = 4, Artist = "Kobi Marimi", AudioPath = " ~/audios/60971056_Home.mp3", Country = "Israel", Description = "#23 Eurovision", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "Home", Price = 11m, Rating = 0 }
                     );
                 });
 
@@ -282,7 +284,7 @@ namespace SongsProject.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -290,7 +292,7 @@ namespace SongsProject.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -298,7 +300,7 @@ namespace SongsProject.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -306,12 +308,12 @@ namespace SongsProject.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -319,18 +321,20 @@ namespace SongsProject.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("SongsProject.Models.CartLine", b =>
                 {
                     b.HasOne("SongsProject.Models.Order")
                         .WithMany("Lines")
-                        .HasForeignKey("OrderID");
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SongsProject.Models.Song", "Song")
                         .WithMany()
-                        .HasForeignKey("SongId");
+                        .HasForeignKey("SongId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }
