@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SongsProject.Models;
+using System.Linq;
 
 namespace SongsProject.Components
 {
@@ -13,10 +13,9 @@ namespace SongsProject.Components
             repository = repo;
         }
 
-        //renders the default Razor partial view
+        //Renders the navigation menu partial view
         public IViewComponentResult Invoke()
-        { 
-            //indicate which country has been selected
+        {
             ViewBag.SelectedCountry = RouteData?.Values["Country"];
             return View(repository.Songs
                 .Select(x => x.Country)

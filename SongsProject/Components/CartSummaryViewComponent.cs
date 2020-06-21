@@ -12,6 +12,7 @@ namespace SongsProject.Components
             cart = cartService;
         }
 
+        //Renders the cart summary partial view
         public IViewComponentResult Invoke()
         {
             return View(cart);

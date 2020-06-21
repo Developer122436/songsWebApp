@@ -31,33 +31,8 @@
             </div>
             <button class="btn btn-primary" type="submit">Log In</button>
             <a asp-action="Cancel" class="btn btn-danger">Cancel</a>
-            <a asp-action="ForgotPassword" class="btn btn-dark">Forgot Password?</a>          
+            <a asp-action="ForgotPassword" class="btn btn-dark">Forgot Password?</a>
         </form>
-    </div>
-    <div class="col-md-6">
-        <h1>External Login</h1>
-        <hr />
-        @{
-            if (Model.ExternalLogins.Count == 0)
-            {
-                <div>No external logins configured</div>
-            }
-            else
-            {
-                <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
-                    <div>
-                        @foreach (var provider in Model.ExternalLogins)
-                        {
-                            <button type="submit" class="btn btn-primary" 
-                                    name="provider" value="@provider.Name"
-                                    title="Log in using your @provider.DisplayName account">
-                                @provider.DisplayName
-                            </button>
-                        }
-                    </div>
-                </form>
-            }
-        }
     </div>
 </div>
 

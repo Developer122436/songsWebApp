@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace SongsProject.Infrastructure {
-
-    public static class UrlExtensions {
+namespace SongsProject.Infrastructure
+{
+    public static class UrlExtensions
+    {
 
         public static string PathAndQuery(this HttpRequest request) =>
         request.QueryString.HasValue

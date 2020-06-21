@@ -28,7 +28,6 @@
 
     <hr class="hrSongSummary" />
 
-    @*Method is post - because GET is only if request is not cause change on database*@
     <form id="@Model.Id" asp-action="AddToCart"
           asp-controller="Cart" method="post" class="p-1">
         <input type="hidden" asp-for="Id" />
