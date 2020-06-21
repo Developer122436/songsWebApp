@@ -157,9 +157,6 @@ namespace SongsProject
                 );
 
             });
-
-
         }
-
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SongsProject.Models.ViewModels
+﻿namespace SongsProject.Models.ViewModels
 {
     public class UserClaim
     {

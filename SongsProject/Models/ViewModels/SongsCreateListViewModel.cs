@@ -1,25 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SongsProject.Models;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
-using OfficeOpenXml;
-using OfficeOpenXml.Style;
-using SongsProject.Infrastructure;
-using SongsProject.Models.ViewModels;
-using System.Web;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
-using System;
+﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 
 namespace SongsProject.Models.ViewModels
 {
     public class SongsCreateListViewModel
     {
-
         [Required(ErrorMessage = "Please enter a song name")]
         public string Name { get; set; }
 
@@ -43,6 +28,5 @@ namespace SongsProject.Models.ViewModels
 
         [Required(ErrorMessage = "Please specify a musicstyle")]
         public string MusicStyle { get; set; }
-
     }
 }

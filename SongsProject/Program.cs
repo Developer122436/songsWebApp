@@ -23,6 +23,5 @@ namespace SongsProject
                     logging.AddNLog();
                 })
             .UseStartup<Startup>();
-
     }
 }

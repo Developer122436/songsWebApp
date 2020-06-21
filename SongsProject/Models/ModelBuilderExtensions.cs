@@ -1,8 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SongsProject.Models
 {
@@ -21,7 +17,7 @@ namespace SongsProject.Models
                              Country = "Israel",
                              MusicStyle = "Pop",
                              ImagePath = "~/images/NoImage.png",
-                             AudioPath = " ~/audios/Toy.mp3",        
+                             AudioPath = " ~/audios/Toy.mp3",
                              Rating = 0
                          },
                          new Song
@@ -61,7 +57,7 @@ namespace SongsProject.Models
                              AudioPath = " ~/audios/60971056_Home.mp3",
                              Rating = 0
                          }
-                     );        
+                     );
         }
     }
 }

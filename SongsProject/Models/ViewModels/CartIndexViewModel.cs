@@ -1,6 +1,4 @@
-﻿using SongsProject.Models;
-
-namespace SongsProject.Models.ViewModels
+﻿namespace SongsProject.Models.ViewModels
 {
     public class CartIndexViewModel
     {

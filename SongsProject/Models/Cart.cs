@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SongsProject.Models {
-
-    public class Cart {
-
+namespace SongsProject.Models
+{
+    public class Cart
+    {
         private List<CartLine> lineCollection = new List<CartLine>();
 
-        public virtual void AddItem(Song Song, int quantity) {
+        public virtual void AddItem(Song Song, int quantity)
+        {
             CartLine line = lineCollection
             .FirstOrDefault(p => p.Song.Id == Song.Id);
             if (line == null)
@@ -36,7 +37,8 @@ namespace SongsProject.Models {
         public virtual IEnumerable<CartLine> Lines => lineCollection;
     }
 
-    public class CartLine {
+    public class CartLine
+    {
         public int CartLineID { get; set; }
         public Song Song { get; set; }
         public int Quantity { get; set; }

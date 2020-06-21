@@ -1,15 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace SongsProject.Models
 {
-    // To create new properties write "prop"
-    // and press TAB button twice on keyboard
     public class Song
     {
         public int Id { get; set; }
-        
+
         [Required(ErrorMessage = "Please enter a song name")]
         public string Name { get; set; }
 

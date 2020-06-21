@@ -1,23 +1,15 @@
-﻿using System;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using SongsProject.Infrastructure;
+using System;
 
 namespace SongsProject.Models
 {
     public class SessionCart : Cart
     {
-        //The static GetCart method is a factory
-        //for creating SessionCart objects and providing them with an 
-        //ISession object so they can store themselves.
         public static Cart GetCart(IServiceProvider services)
         {
-            //Getting hold of the ISession object is a little complicated. I have to obtain an instance of the
-            //IHttpContextAccessor service, which provides me with access to an HttpContext object that, in turn,
-            //provides me with the ISession.
-            //This indirect approach is required because the session isn’t provided as a
-            //regular service.
             ISession session = services.GetService<IHttpContextAccessor>()?
             .HttpContext.Session;
             SessionCart cart = session?.GetJson<SessionCart>("Cart")

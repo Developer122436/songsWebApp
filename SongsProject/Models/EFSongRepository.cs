@@ -18,12 +18,7 @@ namespace SongsProject.Models
 
         public void AddRating(int Id)
         {
-            _logger.LogTrace("Trace Log");
-            _logger.LogDebug("Debug Log");
-            _logger.LogInformation("Information Log");
-            _logger.LogWarning("Warning Log");
-            _logger.LogError("Error Log");
-            _logger.LogCritical("Critical Log");
+            GetLogger();
 
             Song dbEntry = context.Songs
                 .FirstOrDefault(p => p.Id == Id);
@@ -70,6 +65,16 @@ namespace SongsProject.Models
                 context.SaveChanges();
             }
             return dbEntry;
+        }
+
+        public void GetLogger()
+        {
+            _logger.LogTrace("Trace Log");
+            _logger.LogDebug("Debug Log");
+            _logger.LogInformation("Information Log");
+            _logger.LogWarning("Warning Log");
+            _logger.LogError("Error Log");
+            _logger.LogCritical("Critical Log");
         }
 
     }

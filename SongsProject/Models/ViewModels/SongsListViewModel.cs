@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using SongsProject.Models;
+﻿using SongsProject.Models;
 using SongsProject.Models.ViewModels;
+using System.Collections.Generic;
 
 namespace SongsProject.Infrastructure
 {
