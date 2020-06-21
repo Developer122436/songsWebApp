@@ -53,8 +53,6 @@ namespace SongsProject
                 options.AppSecret = "51995b65a494426373ec077ea9052175";
             });
 
-            // Prevent attacks of web sites that uses only HTTP - website will be only in HTTPS
-            // HSTS - response header that inform browser to connect to the website only using HTTPS
             services.AddHsts(options =>
             {
                 options.Preload = true;

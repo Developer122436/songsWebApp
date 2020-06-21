@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SongsProject.Models.ViewModels;
 using System;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -137,13 +136,11 @@ namespace SongsProject.Controllers
         // HttpGet UI - UI of log in 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(string returnUrl)
+        public IActionResult Login(string returnUrl)
         {
             LoginViewModel model = new LoginViewModel
             {
                 ReturnUrl = returnUrl,
-                ExternalLogins =
-        (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
             };
 
             return View(model);
@@ -154,8 +151,6 @@ namespace SongsProject.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            model.ExternalLogins =
-        (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
             {

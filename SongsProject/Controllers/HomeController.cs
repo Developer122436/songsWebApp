@@ -24,12 +24,7 @@ namespace SongsProject.Controllers
 
         public ViewResult ListCountry(string Country, int songPage = 1)
         {
-            _logger.LogTrace("Trace Log");
-            _logger.LogDebug("Debug Log");
-            _logger.LogInformation("Information Log");
-            _logger.LogWarning("Warning Log");
-            _logger.LogError("Error Log");
-            _logger.LogCritical("Critical Log");
+            GetLogging();
 
             HttpContext.Session.Set("SongProject", new byte[0]);
             return View(new SongsListViewModel
@@ -58,9 +53,7 @@ namespace SongsProject.Controllers
                 Songs = _repo.Songs
                     .Where(p => Name == null || p.Name == Name)
                     .OrderByDescending(p => p.Rating)
-                    //Skip - Skip on the table rows
                     .Skip((songPage - 1) * PageSize)
-                    //Take - Take number of rows
                     .Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
@@ -81,5 +74,14 @@ namespace SongsProject.Controllers
             return RedirectToAction("ListCountry");
         }
 
+        public void GetLogging()
+        {
+            _logger.LogTrace("Trace Log");
+            _logger.LogDebug("Debug Log");
+            _logger.LogInformation("Information Log");
+            _logger.LogWarning("Warning Log");
+            _logger.LogError("Error Log");
+            _logger.LogCritical("Critical Log");
+        }
     }
 }

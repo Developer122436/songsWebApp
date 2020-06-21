@@ -17,13 +17,11 @@ namespace SongsProject.Controllers
             _cart = cartService;
         }
 
+        // UI that will show all orders that was not sended to the users
         public ViewResult List() =>
             View(_repository.Orders.Where(o => !o.Sended));
 
-
-        [HttpGet]
-        public IActionResult Checkout() => View(new Order());
-
+        // Method that let admin user to mark the orders that was sended to users
         [HttpPost]
         public IActionResult MarkSended(int orderId)
         {
@@ -40,11 +38,16 @@ namespace SongsProject.Controllers
 
         }
 
+        // HttpGet UI - UI that show all the details user need to add for the order
+        [HttpGet]
+        public IActionResult Checkout() => View(new Order());
+
+        // HttpPost UI - User add his details and the order inserted to the database
         [HttpPost]
         public IActionResult Checkout(Order order)
         {
             if (!_cart.Lines.Any()) ModelState.AddModelError("", "Sorry, your cart is empty!");
-            //any validation problems are passed to the action method through the ModelState property
+
             if (ModelState.IsValid)
             {
                 order.Lines = _cart.Lines.ToArray();
@@ -55,6 +58,7 @@ namespace SongsProject.Controllers
             return View(order);
         }
 
+        // UI that let the user know if his order is completed or there is a problem with his order
         public IActionResult Completed(Order order)
         {
             if (!_cart.Lines.Any()) ModelState.AddModelError("", "Sorry, your cart is empty!");
@@ -67,12 +71,14 @@ namespace SongsProject.Controllers
             return RedirectToAction("AccessDenied", "Order");
         }
 
+        // Method for button that will return user back to home page
         [HttpGet]
         public IActionResult Cancel()
         {
             return RedirectToAction("ListCountry", "Home");
         }
 
+        // HttpGet UI - UI of access denied, will show if user don't have credentials to access the UI
         [HttpGet]
         [AllowAnonymous]
         public IActionResult AccessDenied()

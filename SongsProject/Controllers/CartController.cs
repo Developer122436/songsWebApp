@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SongsProject.Models;
 using SongsProject.Models.ViewModels;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SongsProject.Controllers
@@ -20,6 +19,7 @@ namespace SongsProject.Controllers
             cart = cartService;
         }
 
+        // Show UI of all songs that user want to buy in his cart
         public ViewResult Index(string returnUrl)
         {
             return View(new CartIndexViewModel
@@ -29,22 +29,23 @@ namespace SongsProject.Controllers
             });
         }
 
+        // Method for button that will add song to cart
         public async Task<RedirectToActionResult> AddToCart(int id, string returnUrl)
         {
-            //HttpContext.Session.GetString("Id");
             var song = await repository.Songs
                 .FirstOrDefaultAsync(p => p.Id == id);
             if (song != null) cart.AddItem(song, 1);
-            return RedirectToAction("Index", new {returnUrl});
+            return RedirectToAction("Index", new { returnUrl });
         }
 
+        // Method for button that will remove song from cart
         public async Task<RedirectToActionResult> RemoveFromCart(int id,
             string returnUrl)
         {
             var song = await repository.Songs
                 .FirstOrDefaultAsync(p => p.Id == id);
             if (song != null) cart.RemoveLine(song);
-            return RedirectToAction("Index", new {returnUrl});
+            return RedirectToAction("Index", new { returnUrl });
         }
 
     }

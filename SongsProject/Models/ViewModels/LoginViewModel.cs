@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SongsProject.Models.ViewModels
 {
@@ -22,8 +17,5 @@ namespace SongsProject.Models.ViewModels
 
         public string ReturnUrl { get; set; }
 
-        // AuthenticationScheme is in Microsoft.AspNetCore.Authentication namespace
-        //List of Identify External Providers
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
     }
 }
