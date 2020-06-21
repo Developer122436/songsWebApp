@@ -6,16 +6,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAnj9vREhnek2NhLkjpxyUdgAAAAACAAAAAAAQZgAAAAEAACAAAADrWvTaLCGdmI58PYJunpLGDCAXpMUEHIbjzb7SrjlviAAAAAAOgAAAAAIAACAAAABomf9wQDopMcg8KY0RCps4Uqf3Z2Z5ai/MXFtMAZqVCoAAAADIEV8NHDKembMhE749Xo+8gDT7vkBo5qJsMXNaQ/jCDxG+RUgYz2eKct5WNU+XMXw8On+vKwGOv8b6Zs56ZxPhqDfEWoXJL9z+Be20YJsEmqqGSmQUOlttX59QLe9Q16utTKaGi2usxJVi+UDvvkxI2mu47TrljOw/tIni3PzDVUAAAAAIhtz5RdAVNhDaT2FyC6kJabr8aPPts4/LqLzObyP96S1kUYjIH4sNyjn9dS/bbcRcAvrjIIbStne1NVNsvd7S</EncryptedPassword>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAXy1U+NF6TESvyP0nBm8adAAAAAACAAAAAAAQZgAAAAEAACAAAADn2vsoCZNpGY2nlLEghhjHnZdbhEDPVoyvfCFp56Md6QAAAAAOgAAAAAIAACAAAAAkDz65OYj2yoTAdPhNvH5wRMAsHsSjtr0ShLA0JgPylSAAAADTjv9J64RqMXEAa48nHJXeBmwHOX+zuKOLRNEwRq+k8UAAAADI8oMyLh8M1P2TDeQrt1JfmMzNFX29KVbmVlBjORwpYZvzeDUzUl9cBh0GUhtPBRdPmOnqyAuEPUUfzUnPrEGV</EncryptedPassword>
   </PropertyGroup>
   <ItemGroup>
     <DestinationConnectionStrings Include="MyConnStr">
-      <Value>Data Source=tcp:songswebappdbserver.database.windows.net,1433%3bInitial Catalog=SongsWebAppDatabase%3bUser Id=appuser%40songswebappdbserver%3bPassword=Pasw%24%24rd</Value>
+      <Value>Data Source=SQL5053.site4now.net%3bInitial Catalog=DB_A61CED_dimas12%3bUser Id=DB_A61CED_dimas12_admin%3bPassword=Dimathecool12%3b</Value>
     </DestinationConnectionStrings>
-  </ItemGroup>
-  <ItemGroup>
-    <EFMigrations Include="SongsProject.Models.ApplicationDbContext">
-      <Value>Data Source=tcp:songswebappdbserver.database.windows.net,1433%3bInitial Catalog=SongsWebAppDatabase%3bUser Id=appuser%40songswebappdbserver%3bPassword=Pasw%24%24rd</Value>
-    </EFMigrations>
   </ItemGroup>
 </Project>

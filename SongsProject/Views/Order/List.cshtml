@@ -11,7 +11,7 @@
         <tr>
             <th>Name</th>
             <th>Mail</th>
-            <th colspan="2">Details</th>
+            <th>Song/Songs</th>
             <th></th>
         </tr>
         @foreach (Order o in Model)
@@ -19,8 +19,7 @@
             <tr>
                 <td>@o.Name</td>
                 <td>@o.Mail</td>
-                <th>Song</th>
-                <th>Quantity</th>
+                <th>Order Songs from @o.Name:</th>
                 <td>
                     <form asp-action="MarkSended" method="post">
                         <input type="hidden" name="orderId" value="@o.OrderID" />
