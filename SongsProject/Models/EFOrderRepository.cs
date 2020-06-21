@@ -12,10 +12,12 @@ namespace SongsProject.Models
             context = ctx;
         }
 
+        // Method that show orders from the database
         public IQueryable<Order> Orders => context.Orders
             .Include(o => o.Lines)
             .ThenInclude(l => l.Song);
 
+        // Method that save order in database
         public void SaveOrder(Order order)
         {
             context.AttachRange(order.Lines.Select(l => l.Song));

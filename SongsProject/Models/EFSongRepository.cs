@@ -14,21 +14,10 @@ namespace SongsProject.Models
             _logger = logger;
         }
 
+        // Method that show songs from the database
         public IQueryable<Song> Songs => context.Songs;
 
-        public void AddRating(int Id)
-        {
-            GetLogger();
-
-            Song dbEntry = context.Songs
-                .FirstOrDefault(p => p.Id == Id);
-            if (dbEntry != null)
-            {
-                dbEntry.Rating = dbEntry.Rating + 1;
-                context.SaveChanges();
-            }
-        }
-
+        // Method that save song in database
         public void SaveSong(Song song)
         {
             if (song.Id == 0)
@@ -55,6 +44,7 @@ namespace SongsProject.Models
             context.SaveChanges();
         }
 
+        // Method that delete song from database
         public Song DeleteSong(int Id)
         {
             Song dbEntry = context.Songs
@@ -67,6 +57,21 @@ namespace SongsProject.Models
             return dbEntry;
         }
 
+        // Method that add rating for specific song in database
+        public void AddRating(int Id)
+        {
+            GetLogger();
+
+            Song dbEntry = context.Songs
+                .FirstOrDefault(p => p.Id == Id);
+            if (dbEntry != null)
+            {
+                dbEntry.Rating = dbEntry.Rating + 1;
+                context.SaveChanges();
+            }
+        }
+
+        // Method that will show logging details of the specified method
         public void GetLogger()
         {
             _logger.LogTrace("Trace Log");
