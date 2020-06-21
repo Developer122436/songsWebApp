@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SongsProject.Controllers
 {
-    //[Authorize(Policy = "AdminRolePolicy")]
+    [Authorize(Policy = "AdminRolePolicy")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -27,6 +27,7 @@ namespace SongsProject.Controllers
             _logger = logger;
         }
 
+        // HttpGet UI - UI of access denied, will show if user don't have credentials to access the UI
         [HttpGet]
         [AllowAnonymous]
         public IActionResult AccessDenied()
@@ -34,6 +35,7 @@ namespace SongsProject.Controllers
             return View();
         }
 
+        // UI that will show all roles in the database
         [HttpGet]
         public IActionResult ListRoles()
         {
@@ -41,6 +43,7 @@ namespace SongsProject.Controllers
             return View(roles);
         }
 
+        // UI that will show all users in the database
         [HttpGet]
         public IActionResult ListUsers()
         {
@@ -48,6 +51,7 @@ namespace SongsProject.Controllers
             return View(users);
         }
 
+        // HttpGet UI - Show Admin user the details of specified user and let him edit the details
         [HttpGet]
         public async Task<IActionResult> EditUser(string id)
         {
@@ -59,9 +63,7 @@ namespace SongsProject.Controllers
                 return View("NotFound");
             }
 
-            // GetClaimsAsync retunrs the list of user Claims
             var userClaims = await _userManager.GetClaimsAsync(user);
-            // GetRolesAsync returns the list of user Roles
             var userRoles = await _userManager.GetRolesAsync(user);
 
             var model = new EditUserViewModel
@@ -76,6 +78,7 @@ namespace SongsProject.Controllers
             return View(model);
         }
 
+        // HttpPost UI - Admin user edit the details and it inserted to database
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserViewModel model)
         {
@@ -107,6 +110,7 @@ namespace SongsProject.Controllers
             }
         }
 
+        // Method for button that will delete user from the database
         [HttpPost]
         public async Task<IActionResult> DeleteUser(string id)
         {
@@ -135,24 +139,24 @@ namespace SongsProject.Controllers
             }
         }
 
+        // HttpGet UI - Show Admin user the UI of create new role
         [HttpGet]
         public IActionResult CreateRole()
         {
             return View();
         }
 
+        // HttpPost UI - Admin user create the new role and it inserted to database
         [HttpPost]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
             if (ModelState.IsValid)
             {
-                // We just need to specify a unique role name to create a new role
                 IdentityRole identityRole = new IdentityRole
                 {
                     Name = model.RoleName
                 };
 
-                // Saves the role in the underlying AspNetRoles table
                 IdentityResult result = await _roleManager.CreateAsync(identityRole);
 
                 if (result.Succeeded)
@@ -169,12 +173,11 @@ namespace SongsProject.Controllers
             return View(model);
         }
 
-        // Role ID is passed from the URL to the action
+        // HttpGet UI - Show Admin user the details of specified role and let him edit the role
         [HttpGet]
         [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> EditRole(string id)
         {
-            // Find the role by Role ID
             var role = await _roleManager.FindByIdAsync(id);
 
             if (role == null)
@@ -189,12 +192,8 @@ namespace SongsProject.Controllers
                 RoleName = role.Name
             };
 
-            // Retrieve all the Users
             foreach (var user in _userManager.Users)
             {
-                // If the user is in this role, add the username to
-                // Users property of EditRoleViewModel. This model
-                // object is then passed to the view for display
                 if (await _userManager.IsInRoleAsync(user, role.Name))
                 {
                     model.Users.Add(user.UserName);
@@ -204,7 +203,7 @@ namespace SongsProject.Controllers
             return View(model);
         }
 
-        // This action responds to HttpPost and receives EditRoleViewModel
+        // HttpPost UI - Admin user edit the role and it inserted to database
         [HttpPost]
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
@@ -236,6 +235,7 @@ namespace SongsProject.Controllers
             }
         }
 
+        // HttpGet UI - Show Admin user the users of specified role and let him edit the users of the role
         [HttpGet]
         public async Task<IActionResult> EditUsersInRole(string roleId)
         {
@@ -274,6 +274,7 @@ namespace SongsProject.Controllers
             return View(model);
         }
 
+        // HttpPost UI - Admin user edit users of specified role and it inserted to database
         [HttpPost]
         public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
         {
@@ -316,6 +317,7 @@ namespace SongsProject.Controllers
             return RedirectToAction("EditRole", new { Id = roleId });
         }
 
+        // Method for button that will delete role from the database
         [HttpPost]
         [Authorize(Policy = "DeleteRolePolicy")]
         public async Task<IActionResult> DeleteRole(string id)
@@ -329,11 +331,8 @@ namespace SongsProject.Controllers
             }
             else
             {
-                // Wrap the code in a try/catch block
                 try
                 {
-                    //throw new Exception("Test Exception");
-
                     var result = await _roleManager.DeleteAsync(role);
 
                     if (result.Succeeded)
@@ -348,16 +347,10 @@ namespace SongsProject.Controllers
 
                     return View("ListRoles");
                 }
-                // If the exception is DbUpdateException, we know we are not able to
-                // delete the role as there are users in the role being deleted
+
                 catch (DbUpdateException ex)
                 {
-                    //Log the exception to a file. We discussed logging to a file
-                    // using Nlog in Part 63 of ASP.NET Core tutorial
                     _logger.LogError($"Exception Occured : {ex}");
-                    // Pass the ErrorTitle and ErrorMessage that you want to show to
-                    // the user using ViewBag. The Error view retrieves this data
-                    // from the ViewBag and displays to the user.
                     ViewBag.ErrorTitle = $"{role.Name} role is in use";
                     ViewBag.ErrorMessage = $"{role.Name} role cannot be deleted as there are users in this role. If you want to delete this role, please remove the users from the role and then try to delete";
                     return View("Error");
@@ -365,6 +358,7 @@ namespace SongsProject.Controllers
             }
         }
 
+        // HttpGet UI - Show Admin user the roles of specified user and let him edit the roles of the user
         [HttpGet]
         public async Task<IActionResult> ManageUserRoles(string userId)
         {
@@ -403,6 +397,7 @@ namespace SongsProject.Controllers
             return View(model);
         }
 
+        // HttpPost UI - Admin user edit roles of specified user and it inserted to database
         [HttpPost]
         public async Task<IActionResult> ManageUserRoles(List<UserRolesViewModel> model, string userId)
         {
@@ -435,6 +430,7 @@ namespace SongsProject.Controllers
             return RedirectToAction("EditUser", new { Id = userId });
         }
 
+        // HttpGet UI - Show Admin user the claims of specified user and let him edit the claims of the user
         [HttpGet]
         public async Task<IActionResult> ManageUserClaims(string userId)
         {
@@ -476,6 +472,7 @@ namespace SongsProject.Controllers
 
         }
 
+        // HttpPost UI - Admin user edit claims of specified user and it inserted to database
         [HttpPost]
         public async Task<IActionResult> ManageUserClaims(UserClaimsViewModel model)
         {
@@ -487,7 +484,6 @@ namespace SongsProject.Controllers
                 return View("NotFound");
             }
 
-            // Get all the user existing claims and delete them
             var claims = await _userManager.GetClaimsAsync(user);
             var result = await _userManager.RemoveClaimsAsync(user, claims);
 
@@ -497,9 +493,8 @@ namespace SongsProject.Controllers
                 return View(model);
             }
 
-            // Add all the claims that are selected on the UI
             result = await _userManager.AddClaimsAsync(user,
-                model.Cliams.Select(c => new Claim(c.ClaimType, c.IsSelected ? "true" : "false" )));
+                model.Cliams.Select(c => new Claim(c.ClaimType, c.IsSelected ? "true" : "false")));
 
             if (!result.Succeeded)
             {

@@ -22,6 +22,7 @@ namespace SongsProject.Controllers
             _logger = logger;
         }
 
+        // Home Page UI - Show all songs through paging and relevant country user was search
         public ViewResult ListCountry(string Country, int songPage = 1)
         {
             GetLogging();
@@ -46,6 +47,7 @@ namespace SongsProject.Controllers
             });
         }
 
+        // Home Page UI - Show all songs through paging and relevant name user was search
         public ViewResult ListNames(string Name, int songPage = 1)
         {
             return View(new SongsListViewModel
@@ -67,6 +69,7 @@ namespace SongsProject.Controllers
             });
         }
 
+        // Method for button that will add rating to the relevant song
         [Authorize(Policy = "UserRolePolicy")]
         public RedirectToActionResult AddRating(int id)
         {
@@ -74,6 +77,7 @@ namespace SongsProject.Controllers
             return RedirectToAction("ListCountry");
         }
 
+        // Method that will show logging details of the specified method
         public void GetLogging()
         {
             _logger.LogTrace("Trace Log");
