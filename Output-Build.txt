@@ -1,1 +1,0 @@
-﻿1>------ Build started: Project: SongsProject, Configuration: Debug Any CPU ------
