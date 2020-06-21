@@ -442,7 +442,6 @@ namespace SongsProject.Controllers
                 return View("NotFound");
             }
 
-            // UserManager service GetClaimsAsync method gets all the current claims of the user
             var existingUserClaims = await _userManager.GetClaimsAsync(user);
 
             var model = new UserClaimsViewModel
@@ -450,7 +449,6 @@ namespace SongsProject.Controllers
                 UserId = userId
             };
 
-            // Loop through each claim we have in our application
             foreach (Claim claim in ClaimsStore.AllClaims)
             {
                 UserClaim userClaim = new UserClaim
@@ -458,8 +456,6 @@ namespace SongsProject.Controllers
                     ClaimType = claim.Type
                 };
 
-                // If the user has the claim, set IsSelected property to true, so the checkbox
-                // next to the claim is checked on the UI
                 if (existingUserClaims.Any(c => c.Type == claim.Type && c.Value == "true"))
                 {
                     userClaim.IsSelected = true;
@@ -469,7 +465,6 @@ namespace SongsProject.Controllers
             }
 
             return View(model);
-
         }
 
         // HttpPost UI - Admin user edit claims of specified user and it inserted to database
@@ -503,7 +498,6 @@ namespace SongsProject.Controllers
             }
 
             return RedirectToAction("EditUser", new { Id = model.UserId });
-
         }
     }
 }

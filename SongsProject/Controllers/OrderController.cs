@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SongsProject.Controllers
 {
-    [Authorize(Policy = "UserRolePolicy")]
+    [Authorize(Policy = "AdminRolePolicy")]
     public class OrderController : Controller
     {
         private readonly Cart _cart;
@@ -40,10 +40,12 @@ namespace SongsProject.Controllers
 
         // HttpGet UI - UI that show all the details user need to add for the order
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Checkout() => View(new Order());
 
         // HttpPost UI - User add his details and the order inserted to the database
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Checkout(Order order)
         {
             if (!_cart.Lines.Any()) ModelState.AddModelError("", "Sorry, your cart is empty!");
@@ -59,6 +61,7 @@ namespace SongsProject.Controllers
         }
 
         // UI that let the user know if his order is completed or there is a problem with his order
+        [AllowAnonymous]
         public IActionResult Completed(Order order)
         {
             if (!_cart.Lines.Any()) ModelState.AddModelError("", "Sorry, your cart is empty!");
@@ -73,6 +76,7 @@ namespace SongsProject.Controllers
 
         // Method for button that will return user back to home page
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Cancel()
         {
             return RedirectToAction("ListCountry", "Home");

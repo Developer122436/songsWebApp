@@ -13,23 +13,21 @@ using System.Threading.Tasks;
 
 namespace SongsProject.Controllers
 {
-    // Authorize without any parameters it only checks if the user is authenticated.
     [Authorize(Policy = "AdminRolePolicy")]
     public class AdminController : Controller
     {
         private readonly ISongRepository _repositorySongs;
         private readonly IOrderRepository _repositoryOrders;
-        private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public AdminController(IHostingEnvironment hostingEnvironment, ISongRepository repoSongs, IOrderRepository repoOrders, ApplicationDbContext context)
+        public AdminController(IHostingEnvironment hostingEnvironment, ISongRepository repoSongs, IOrderRepository repoOrders)
         {
             _hostingEnvironment = hostingEnvironment;
             _repositorySongs = repoSongs;
             _repositoryOrders = repoOrders;
-            _context = context;
         }
 
+        // Method that show songs 
         public async Task<IActionResult> Index() => View(await _repositorySongs.Songs.ToListAsync());
 
         // HttpGet UI - UI for edit song
@@ -264,7 +262,6 @@ namespace SongsProject.Controllers
             byte[] fileContents;
             int rowStart = 2;
             List<SongsProject.Models.Order> orders = await _repositoryOrders.Orders.ToListAsync();
-            //List<SongsProject.Models.Cart> cart = await _repositoryOrders.Orders.ToListAsync();
 
             using (var package = new ExcelPackage())
             {
