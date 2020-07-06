@@ -1,23 +1,23 @@
 ﻿/* Function that change the photo file to html file */
 function changePhotoFile() {
-    $(document).ready(function () {
-        $('.custom-file-input').on("change", function () {
-            var fileName = $(this).val().split("\\").pop();
-            $(this).next('.custom-file-label').html(fileName);
+    window.addEventListener('DOMContentLoaded', () => {
+        document.querySelector(".custom-file-input").addEventListener("change", () => {
+            let fileName = this.val().split("\\").pop();
+            this.next(".custom-file-input").html(fileName);
         });
     });
 }
 
 /* Function that check if the user want to delete the user or role */
 function confirmDelete(uniqueId, isDeleteClicked) {
-    var deleteSpan = 'deleteSpan_' + uniqueId;
-    var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
+    let deleteSpan = `deleteSpan_${uniqueId}`;
+    let confirmDeleteSpan = `confirmDeleteSpan_${uniqueId}`; 
 
     if (isDeleteClicked) {
-        $('#' + deleteSpan).hide();
-        $('#' + confirmDeleteSpan).show();
+        document.getElementById(deleteSpan).className = "displayNone";
+        document.getElementById(confirmDeleteSpan).className = "";
     } else {
-        $('#' + deleteSpan).show();
-        $('#' + confirmDeleteSpan).hide();
+        document.getElementById(deleteSpan).className = "";
+        document.getElementById(confirmDeleteSpan).className = "displayNone";
     }
 }
