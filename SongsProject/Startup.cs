@@ -124,8 +124,6 @@ namespace SongsProject
                 app.UseHsts();
             }
 
-            app.UseDefaultFiles();
-
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
