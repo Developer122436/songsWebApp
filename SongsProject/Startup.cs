@@ -100,7 +100,6 @@ namespace SongsProject
                 options.AccessDeniedPath = new PathString("/Administration/AccessDenied");
             });
 
-
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
