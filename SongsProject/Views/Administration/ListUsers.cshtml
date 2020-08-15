@@ -32,6 +32,7 @@
                         <a asp-action="EditUser" asp-controller="Administration"
                            asp-route-id="@user.Id" class="btn btn-primary">Edit</a>
                     }
+
                     @if ((await authorizationService.AuthorizeAsync(User, "DeleteRolePolicy")).Succeeded)
                     {
                         <span id="confirmDeleteSpan_@user.Id" class="displayNone">

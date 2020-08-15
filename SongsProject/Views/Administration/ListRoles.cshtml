@@ -35,7 +35,7 @@
 
                     @if ((await authorizationService.AuthorizeAsync(User, "DeleteRolePolicy")).Succeeded)
                     {
-                        <span id="confirmDeleteSpan_@role.Id" style="display:none">
+                        <span id="confirmDeleteSpan_@role.Id" class="displayNone">
                             <span>Are you sure you want to delete?</span>
                             <button type="submit" class="btn btn-danger">Yes</button>
                             <a href="#" class="btn btn-primary"
@@ -43,7 +43,7 @@
                         </span>
 
                         <span id="deleteSpan_@role.Id">
-                           <a href="#" class="btn btn-danger"
+                            <a href="#" class="btn btn-danger"
                                onclick="confirmDelete('@role.Id', true)">Delete</a>
                         </span>
                     }
@@ -62,7 +62,7 @@ else
             <h5 class="card-title">
                 Use the button below to create a role
             </h5>
-            <a class="btn btn-primary autoWidth" 
+            <a class="btn btn-primary autoWidth"
                asp-controller="administration" asp-action="CreateRole">
                 Create Role
             </a>
