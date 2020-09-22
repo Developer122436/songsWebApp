@@ -1,7 +1,5 @@
 # Songs - Web Application
 
-•	http://dimaspe12-001-site1.atempurl.com/
-
 Developed independently web app from scratch, Worked on front-end and back-end in this project.
 
 Technologies:
