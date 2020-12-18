@@ -10,7 +10,7 @@ using SongsProject.Models;
 namespace SongsProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200621113801_Initial")]
+    [Migration("20201218163258_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -272,10 +272,11 @@ namespace SongsProject.Migrations
                     b.ToTable("Songs");
 
                     b.HasData(
-                        new { Id = 1, Artist = "Neta", AudioPath = " ~/audios/Toy.mp3", Country = "Israel", Description = "#1 Eurovision", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "Toy", Price = 18m, Rating = 0 },
-                        new { Id = 2, Artist = "Jennifer Lopez", AudioPath = " ~/audios/On The Floor.mp3", Country = "USA", Description = "#1 USA", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "On the floor", Price = 21m, Rating = 0 },
-                        new { Id = 3, Artist = "Ariana Grande", AudioPath = " ~/audios/7 rings.mp3", Country = "USA", Description = "#1 USA", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "7 Rings", Price = 22m, Rating = 0 },
-                        new { Id = 4, Artist = "Kobi Marimi", AudioPath = " ~/audios/60971056_Home.mp3", Country = "Israel", Description = "#23 Eurovision", ImagePath = "~/images/NoImage.png", MusicStyle = "Pop", Name = "Home", Price = 11m, Rating = 0 }
+                        new { Id = 1, Artist = "Neta", AudioPath = "~/audios/Toy.mp3", Country = "Israel", Description = "#1 Eurovision", ImagePath = "~/images/Toy.jpg", MusicStyle = "Pop", Name = "Toy", Price = 18m, Rating = 0 },
+                        new { Id = 2, Artist = "Jennifer Lopez", AudioPath = "~/audios/On The Floor.mp3", Country = "USA", Description = "#1 USA", ImagePath = "~/images/NoImage.jpg", MusicStyle = "Pop", Name = "On the floor", Price = 21m, Rating = 0 },
+                        new { Id = 3, Artist = "Ariana Grande", AudioPath = "~/audios/7 rings.mp3", Country = "USA", Description = "#1 USA", ImagePath = "~/images/7Rings.jpg", MusicStyle = "Pop", Name = "7 Rings", Price = 22m, Rating = 0 },
+                        new { Id = 4, Artist = "Kobi Marimi", AudioPath = "~/audios/Home.mp3", Country = "Israel", Description = "#23 Eurovision", ImagePath = "~/images/Home.jpg", MusicStyle = "Pop", Name = "Home", Price = 11m, Rating = 0 },
+                        new { Id = 5, Artist = "Maroon 5", AudioPath = "~/audios/Memories.mp3", Country = "USA", Description = "#2 USA", ImagePath = "~/images/Memories.jpg", MusicStyle = "Pop", Name = "Memories", Price = 8m, Rating = 0 }
                     );
                 });
 

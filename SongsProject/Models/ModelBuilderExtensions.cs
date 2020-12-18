@@ -16,8 +16,8 @@ namespace SongsProject.Models
                              Price = 18,
                              Country = "Israel",
                              MusicStyle = "Pop",
-                             ImagePath = "~/images/NoImage.png",
-                             AudioPath = " ~/audios/Toy.mp3",
+                             ImagePath = "~/images/Toy.jpg",
+                             AudioPath = "~/audios/Toy.mp3",
                              Rating = 0
                          },
                          new Song
@@ -29,8 +29,8 @@ namespace SongsProject.Models
                              Price = 21,
                              Country = "USA",
                              MusicStyle = "Pop",
-                             ImagePath = "~/images/NoImage.png",
-                             AudioPath = " ~/audios/On The Floor.mp3",
+                             ImagePath = "~/images/NoImage.jpg",
+                             AudioPath = "~/audios/On The Floor.mp3",
                              Rating = 0
                          }, new Song
                          {
@@ -41,8 +41,8 @@ namespace SongsProject.Models
                              Price = 22,
                              Country = "USA",
                              MusicStyle = "Pop",
-                             ImagePath = "~/images/NoImage.png",
-                             AudioPath = " ~/audios/7 rings.mp3",
+                             ImagePath = "~/images/7Rings.jpg",
+                             AudioPath = "~/audios/7 rings.mp3",
                              Rating = 0
                          }, new Song
                          {
@@ -53,8 +53,20 @@ namespace SongsProject.Models
                              Price = 11,
                              Country = "Israel",
                              MusicStyle = "Pop",
-                             ImagePath = "~/images/NoImage.png",
-                             AudioPath = " ~/audios/60971056_Home.mp3",
+                             ImagePath = "~/images/Home.jpg",
+                             AudioPath = "~/audios/Home.mp3",
+                             Rating = 0
+                         }, new Song
+                         {
+                             Id = 5,
+                             Name = "Memories",
+                             Artist = "Maroon 5",
+                             Description = "#2 USA",
+                             Price = 8,
+                             Country = "USA",
+                             MusicStyle = "Pop",
+                             ImagePath = "~/images/Memories.jpg",
+                             AudioPath = "~/audios/Memories.mp3",
                              Rating = 0
                          }
                      );

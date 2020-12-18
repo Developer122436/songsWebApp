@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
 
 namespace SongsProject.Migrations
 {
@@ -225,10 +225,11 @@ namespace SongsProject.Migrations
                 columns: new[] { "Id", "Artist", "AudioPath", "Country", "Description", "ImagePath", "MusicStyle", "Name", "Price", "Rating" },
                 values: new object[,]
                 {
-                    { 1, "Neta", " ~/audios/Toy.mp3", "Israel", "#1 Eurovision", "~/images/NoImage.png", "Pop", "Toy", 18m, 0 },
-                    { 2, "Jennifer Lopez", " ~/audios/On The Floor.mp3", "USA", "#1 USA", "~/images/NoImage.png", "Pop", "On the floor", 21m, 0 },
-                    { 3, "Ariana Grande", " ~/audios/7 rings.mp3", "USA", "#1 USA", "~/images/NoImage.png", "Pop", "7 Rings", 22m, 0 },
-                    { 4, "Kobi Marimi", " ~/audios/60971056_Home.mp3", "Israel", "#23 Eurovision", "~/images/NoImage.png", "Pop", "Home", 11m, 0 }
+                    { 1, "Neta", "~/audios/Toy.mp3", "Israel", "#1 Eurovision", "~/images/Toy.jpg", "Pop", "Toy", 18m, 0 },
+                    { 2, "Jennifer Lopez", "~/audios/On The Floor.mp3", "USA", "#1 USA", "~/images/NoImage.jpg", "Pop", "On the floor", 21m, 0 },
+                    { 3, "Ariana Grande", "~/audios/7 rings.mp3", "USA", "#1 USA", "~/images/7Rings.jpg", "Pop", "7 Rings", 22m, 0 },
+                    { 4, "Kobi Marimi", "~/audios/Home.mp3", "Israel", "#23 Eurovision", "~/images/Home.jpg", "Pop", "Home", 11m, 0 },
+                    { 5, "Maroon 5", "~/audios/Memories.mp3", "USA", "#2 USA", "~/images/Memories.jpg", "Pop", "Memories", 8m, 0 }
                 });
 
             migrationBuilder.CreateIndex(
