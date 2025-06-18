@@ -1,0 +1,10 @@
+bin
+obj
+.DS_Store
+*.db
+publish
+settings.json
+appsettings.json
+appsettings.production.json
+.vs
+.vscode

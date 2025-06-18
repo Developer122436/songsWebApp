@@ -1,0 +1,17 @@
+﻿@model SongsListViewModel
+
+@{
+    ViewBag.Title = "List Country";
+}
+
+@foreach (var p in Model.Songs)
+{
+    @await Html.PartialAsync("SongSummary", p)
+    <br />
+}
+
+<div page-model="@Model.PagingInfo" page-action="ListCountry" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-secondary"
+     page-class-selected="btn-primary" page-url-country="@Model.CurrentCountry"
+     class="btn-group pull-right m-1">
+</div>

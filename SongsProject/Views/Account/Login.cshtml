@@ -1,0 +1,40 @@
+﻿@model LoginViewModel
+
+@{
+    ViewBag.Title = "Log in";
+    Layout = "_SecondLayout";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h1>Local Account Login</h1>
+        <hr />
+        <form asp-action="Login" asp-controller="Account" method="post">
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <div><span asp-validation-for="Email" class="text-danger"></span></div>
+                <input asp-for="Email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <div><span asp-validation-for="Password" class="text-danger"></span></div>
+                <input asp-for="Password" class="form-control" />
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label asp-for="RememberMe">
+                        <input asp-for="RememberMe" />
+                        @Html.DisplayNameFor(m => m.RememberMe)
+                    </label>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Log In</button>
+            <a asp-action="Cancel" class="btn btn-danger">Cancel</a>
+            <a asp-action="ForgotPassword" class="btn btn-dark">Forgot Password?</a>
+        </form>
+    </div>
+</div>
+
+
+

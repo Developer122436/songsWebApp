@@ -1,0 +1,72 @@
+﻿@model Song
+
+
+<div class="card-outline-primary borderSongSummary m-1" id="borderSongSummary">
+
+    <img src="@Url.Content(Model.ImagePath)" id="imageStandart" class="card-img-top" alt="Photo song" asp-append-version="true" />
+
+    <hr class="hrSongSummary" />
+
+    <div class="aplayerClass">
+        <div id="aPlayer">
+            <audio controls controlsList="nodownload">
+                <source src="@Url.Content(Model.AudioPath)" type="audio/mp3" />
+            </audio>
+        </div>
+    </div>
+
+    <hr class="hrSongSummary" />
+
+    <center class="p-1"><h3>@Model.MusicStyle Music</h3></center>
+
+    <hr class="hrSongSummary" />
+
+    <div class="bg-faded p-1">
+        <h4>@Model.Name</h4>
+        <h1>@Model.Artist</h1>
+    </div>
+
+    <hr class="hrSongSummary" />
+
+    <form id="@Model.Id" asp-action="AddToCart"
+          asp-controller="Cart" method="post" class="p-1">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" name="returnUrl"
+               value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+
+        <div class="descriptionSongSummary">
+            <span class="bg-faded">
+                Description: @Model.Description
+                <button type="submit"
+                        class="btn btn-success btn-sm pull-right" id="floatRight">
+                    Add To Cart
+                </button>
+                <span class="pricelabel">
+                    Price:
+                    <small>@Model.Price.ToString("c")</small>
+                </span>
+            </span>
+        </div>
+
+    </form>
+
+    <hr class="hrSongSummary" />
+
+    <form id="@Model.Id" asp-action="AddRating"
+          asp-controller="Home" method="post" class="p-1">
+        <input type="hidden" asp-for="Id" />
+        <h4 class="marginLastRowSongSummary">
+            <span class="spanCountryRating">
+                Country song: @Model.Country
+                <button type="submit"
+                        class="btn btn-success btn-sm pull-right" id="floatRight">
+                    Rate
+                </button>
+                <span class="ratelabel" id="floatRight">
+                    Rating:
+                    <small>@Model.Rating</small>
+                </span>
+            </span>
+        </h4>
+    </form>
+</div>
