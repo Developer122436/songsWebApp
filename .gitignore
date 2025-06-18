@@ -1,10 +1,26 @@
-bin
-obj
+# Build folders
+/bin/
+/obj/
+/publish/
+
+# IDEs and user settings
+.vs/
+/.vscode/
+*.user
+*.suo
+
+# OS files
 .DS_Store
-*.db
-publish
+
+# Config and sensitive files
 settings.json
 appsettings.json
 appsettings.production.json
-.vs
-.vscode
+secrets.json
+
+# Databases and logs
+*.db
+*.log
+
+# Debug symbols
+*.pdb
