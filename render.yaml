@@ -5,5 +5,5 @@ services:
     plan: free
     region: oregon
     rootDir: SongsProject
-    dockerfilePath: ./SongsProject/Dockerfile
+    dockerfilePath: ./Dockerfile
     autoDeploy: true
