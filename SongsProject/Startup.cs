@@ -25,7 +25,8 @@ namespace SongsProject
             services.AddControllersWithViews();
 
             services.AddDbContextPool<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MyConnStr"))
+                // options.UseSqlServer(Configuration.GetConnectionString("MyConnStr"))
+				options.UseSqlite(Configuration.GetConnectionString("MyConnStr"))
             );
 
             services.AddHsts(options =>
