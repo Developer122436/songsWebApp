@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: songs-web-app
+    env: docker
+    plan: free
+    region: oregon
+    rootDir: SongsProject
+    dockerfilePath: ./SongsProject/Dockerfile
+    autoDeploy: true
