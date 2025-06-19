@@ -1,9 +1,0 @@
-C:\Users\dimas\OneDrive\Desktop\Programming\WebSites\Full-Stack\songsWebApp-master\SongsProject\obj\Debug\netcoreapp2.1\SongsProject.csproj.AssemblyReference.cache
-C:\Users\dimas\OneDrive\Desktop\Programming\WebSites\Full-Stack\songsWebApp-master\SongsProject\obj\Debug\netcoreapp2.1\SongsProject.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\dimas\OneDrive\Desktop\Programming\WebSites\Full-Stack\songsWebApp-master\SongsProject\obj\Debug\netcoreapp2.1\SongsProject.AssemblyInfoInputs.cache
-C:\Users\dimas\OneDrive\Desktop\Programming\WebSites\Full-Stack\songsWebApp-master\SongsProject\obj\Debug\netcoreapp2.1\SongsProject.AssemblyInfo.cs
-C:\Users\dimas\OneDrive\Desktop\Programming\WebSites\Full-Stack\songsWebApp-master\SongsProject\obj\Debug\netcoreapp2.1\SongsProject.csproj.CoreCompileInputs.cache
-C:\Users\dimas\OneDrive\Desktop\Programming\WebSites\Full-Stack\songsWebApp-master\SongsProject\obj\Debug\netcoreapp2.1\SongsProject.RazorAssemblyInfo.cache
-C:\Users\dimas\OneDrive\Desktop\Programming\WebSites\Full-Stack\songsWebApp-master\SongsProject\obj\Debug\netcoreapp2.1\SongsProject.RazorAssemblyInfo.cs
-C:\Users\dimas\OneDrive\Desktop\Programming\WebSites\Full-Stack\songsWebApp-master\SongsProject\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
-C:\Users\dimas\OneDrive\Desktop\Programming\WebSites\Full-Stack\songsWebApp-master\SongsProject\obj\Debug\netcoreapp2.1\SongsProject.sourcelink.json
