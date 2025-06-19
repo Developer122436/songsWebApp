@@ -19,7 +19,6 @@ appsettings.production.json
 secrets.json
 
 # Databases and logs
-*.db
 *.log
 
 # Debug symbols
